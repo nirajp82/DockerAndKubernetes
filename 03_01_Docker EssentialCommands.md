@@ -10,7 +10,7 @@ List All Containers (Stopped and Running). Adding the `-a` flag expands the scop
 List Only Container IDs. For scripting and automation purposes, you can use `docker ps -a -q` to extract only the IDs of all containers. This minimalist output is handy when you need to pass container IDs as parameters to other commands.
 
 * `docker stop container-id`: 
-Stop a Running Container. To gracefully stop a running container, use `docker stop` followed by the container's ID. This command sends a SIGTERM signal to the container, allowing it to shut down gracefully.
+Stop a Running Container. To gracefully stop a running container, use `docker stop` followed by the container's ID. Docker sends a SIGTERM signal to the main process inside the container, allowing the process to shut down gracefully. The container is given a specific amount of time (default is 10 seconds) to stop and perform any necessary cleanup operations before it is forcefully terminated. Please note, if a container does not respond to the SIGTERM signal within the specified timeout period, Docker will forcefully terminate the container using a SIGKILL signal, which can result in data corruption or loss if the application is in the middle of critical operations.
 
 * `docker kill container-id`: 
 The `docker kill` command is used to forcefully stop a running container in a Docker environment. Unlike the `docker stop` command, which sends a SIGTERM signal to the container, allowing it to shut down gracefully, `docker kill` immediately terminates the container by sending a SIGKILL signal. This abrupt termination does not give the container any opportunity to clean up or execute shutdown procedures, making it a forceful and instantaneous way to stop a container.
