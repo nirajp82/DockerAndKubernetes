@@ -67,6 +67,7 @@ Let's consider running an interactive shell within an Ubuntu container. The `-it
 ```bash
 docker run -it ubuntu
 ```
+![image](https://github.com/nirajp82/DockerAndKubernetes/assets/61636643/24528d6a-85e6-4e7f-8165-aa7332e023b6)
 
 This command runs an interactive Ubuntu container. Here's how the communication channels work:
 
