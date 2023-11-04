@@ -26,7 +26,9 @@ With `docker port`, you can inspect the port mappings of a specific container. I
 
 * `docker exec -it container-id /bin/sh`  or `docker container exec -it f42d redis-cli`
 Run a command in a running container. Interactive terminal Connect to linux container and execute commands in container.
-For ex: If we want to get access to the redis CLI for the running redis container we can achieve this using the exec command. 
+For ex: If we want to get access to the redis CLI for the running redis container we can achieve this using the exec command.
+![image](https://github.com/nirajp82/DockerAndKubernetes/assets/61636643/2dd18b7f-baf2-4ab8-a2b8-d32b8eb21d49)
+
 
 * `docker rm container-id` or `name`: Remove a Stopped Container
 To clean up your system, use `docker rm` followed by the container's ID or name. This command removes a stopped container, freeing up resources.
