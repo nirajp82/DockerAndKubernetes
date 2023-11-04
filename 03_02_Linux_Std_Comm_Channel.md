@@ -1,3 +1,5 @@
+In Linux, processes communicate with their environment and with other processes through three standard communication channels: Standard Input (stdin), Standard Output (stdout), and Standard Error (stderr). These channels are essential for input, output, and error handling within the Linux command-line environment.
+
 Let's consider a common scenario in which a Linux process uses all three communication channels: stdin, stdout, and stderr, in a single example.
 
 ### Example: File Copy Operation
