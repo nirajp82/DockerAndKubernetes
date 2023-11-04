@@ -1,4 +1,4 @@
-Certainly! Let's consider a common scenario in which a Linux process uses all three communication channels: stdin, stdout, and stderr, in a single example.
+Let's consider a common scenario in which a Linux process uses all three communication channels: stdin, stdout, and stderr, in a single example.
 
 ### Example: File Copy Operation
 
