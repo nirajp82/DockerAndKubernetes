@@ -87,3 +87,49 @@ The `--until` flag in `docker logs` filters log output to show only the logs gen
 These Docker commands provide essential functionalities for managing containers, monitoring resources, and analyzing container logs effectively. Understanding their usage is crucial for efficient Docker container orchestration.
 
 *For more detailed information, check out the official [Docker Documentation](https://docs.docker.com/).*
+
+
+#
+#
+#
+Both `docker exec -it <container-id> sh` and `docker run -it <container-id> sh` commands can be used to access an interactive shell inside a running Docker container, but they serve different purposes and have distinct behaviors:
+
+### 1. `docker exec -it <container-id> sh`:
+
+- **Usage:** `docker exec -it <container-id> sh` is used to run a new command (`sh` in this case) inside an already running container. It does not start a new container; instead, it attaches an interactive shell to the existing container specified by `<container-id>`.
+  
+- **Purpose:**
+  - **Interacting with Running Containers:** This command is useful for accessing the shell of a container that is already running. You can use it to debug, inspect, or modify the container's state without disrupting its execution.
+  
+- **Example:**
+  ```bash
+  docker exec -it <container-id> sh
+  ```
+
+### 2. `docker run -it <container-id> sh`:
+
+- **Usage:** `docker run -it <container-id> sh` creates a new container instance using the specified `<container-id>` and starts an interactive shell (`sh`) within the new container. This command starts a fresh container and provides an interactive shell prompt for immediate use.
+
+- **Purpose:**
+  - **Starting a New Interactive Container:** This command is useful when you want to spin up a new container and interact with it immediately. It's handy for scenarios where you need to experiment, test, or troubleshoot within an isolated environment.
+
+- **Example:**
+  ```bash
+  docker run -it <container-id> sh
+  ```
+
+### Key Differences:
+
+1. **Existing Container vs. New Container:**
+   - `docker exec -it <container-id> sh` interacts with an **existing running container**.
+   - `docker run -it <container-id> sh` creates a **new container** based on the specified image, then interacts with it.
+
+2. **Use Cases:**
+   - `docker exec -it <container-id> sh` is suitable for working with containers that are already running and need immediate interaction.
+   - `docker run -it <container-id> sh` is useful when you want to spin up a fresh container and start interacting with it right away, especially for testing or debugging purposes.
+
+3. **Container Lifecycle:**
+   - `docker exec` does not affect the container's lifecycle; the container keeps running after the interactive session ends.
+   - `docker run` creates a new container instance, which will be terminated when the interactive shell session is closed unless the container runs another long-lived process.
+
+In summary, `docker exec -it <container-id> sh` is for interacting with existing containers, while `docker run -it <container-id> sh` is for starting a new container with an interactive shell session. Choose the appropriate command based on whether you need to work with an already running container or require a fresh, interactive container environment.
