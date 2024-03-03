@@ -1,4 +1,4 @@
-##Docker Overview
+## Docker Overview
 Docker is a platform designed to make it easier to create, deploy, and run applications by using containers. Containers allow developers to package up an application with all parts it needs, such as libraries and other dependencies, and ship it all out as one package.
 
 Docker's purpose and key features:
@@ -17,7 +17,7 @@ Docker's purpose and key features:
 
 Overall, Docker simplifies the process of building, shipping, and running applications, making it an essential tool for modern software development and deployment workflows.
 
-##Difference between Docker container and Virtual Machine
+## Difference between Docker container and Virtual Machine
 Docker containers and virtual machines (VMs) are both technologies used for running applications in isolated environments, but they operate at different levels of the system and solve different problems.
 
 **Differences:**
