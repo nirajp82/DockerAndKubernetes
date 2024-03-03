@@ -40,7 +40,7 @@ To clean up your system, use `docker rm` followed by the container's ID or name.
 Forcibly remove a running container by adding the `-f` flag to `docker rm`. Be cautious when using this command, as it terminates the container immediately, potentially leading to data loss.
 
 * `docker rmi image-id`
-The `docker rmi` command removes one or more specified images from your local system. Replace `image-id` with the ID of the image you want to remove. This is useful for cleaning up unused or unwanted images to free up disk space.
+The `docker rmi` command removes one or more specified images from your local system. Replace `image-id` with the ID of the image you want to remove. This is useful for cleaning up unused or unwanted images to free up disk space. We must stop and delete all dependent containers to be able to delete an image.
 
 * `docker pull image-info`: Pull an Image from Docker Hub
 To fetch an image from the Docker Hub repository, employ `docker pull` followed by the image's name. This command downloads the specified image, making it available for creating containers.
