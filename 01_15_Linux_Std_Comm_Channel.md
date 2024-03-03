@@ -1,3 +1,23 @@
+## Understanding Input and Output Channels in Docker Containers and Linux Processes
+
+
+In Docker, the terms "attached" and "detached" modes refer to how a container's standard input (stdin), standard output (stdout), and standard error (stderr) are connected to the user's terminal or console.
+
+**Attached Mode**:
+
+- In attached mode, the Docker container's stdin, stdout, and stderr streams are connected directly to the terminal or console where the Docker run command was executed.
+- This means that you can see the output of the container's processes in real-time, and you can also interact with the container by providing input directly from your terminal.
+- When you start a container in attached mode, you typically see the container's output directly in your terminal, and you need to keep the terminal open to maintain the connection.
+- Example: Running a web server in attached mode, where you can see the server logs and interact with the server's command line interface directly from your terminal.
+
+**Detached Mode**:
+
+- In detached mode, the Docker container runs in the background, and its stdin, stdout, and stderr streams are not connected to the terminal where the Docker run command was executed.
+- This means that you don't see the container's output in real-time, and you can't interact with the container's command line interface directly from your terminal.
+- When you start a container in detached mode, you can continue using your terminal for other tasks while the container runs in the background.
+- Example: Running a database server in detached mode, where you don't need to interact with the server's command line interface, and you want the server to continue running in the background even after you close your terminal.
+
+
 In Linux, processes communicate with their environment and with other processes through three standard communication channels: Standard Input (stdin), Standard Output (stdout), and Standard Error (stderr). These channels are essential for input, output, and error handling within the Linux command-line environment.
 
 Let's consider a common scenario in which a Linux process uses all three communication channels: stdin, stdout, and stderr, in a single example.
