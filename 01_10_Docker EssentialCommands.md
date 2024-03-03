@@ -9,6 +9,9 @@ List All Containers (Stopped and Running). Adding the `-a` flag expands the scop
 * `docker ps -a -q`: 
 List Only Container IDs. For scripting and automation purposes, you can use `docker ps -a -q` to extract only the IDs of all containers. This minimalist output is handy when you need to pass container IDs as parameters to other commands.
 
+* `docker images [OPTIONS] [REPOSITORY[:TAG]]`: 
+Lists all Docker images stored locally on your system. The docker ps -a command, on the other hand, is used to list all Docker containers, including both running and stopped containers. 
+
 * `docker stop container-id`: 
 Stop a Running Container. To gracefully stop a running container, use `docker stop` followed by the container's ID. Docker sends a SIGTERM signal to the main process inside the container, allowing the process to shut down gracefully. The container is given a specific amount of time (default is 10 seconds) to stop and perform any necessary cleanup operations before it is forcefully terminated. Please note, if a container does not respond to the SIGTERM signal within the specified timeout period, Docker will forcefully terminate the container using a SIGKILL signal, which can result in data corruption or loss if the application is in the middle of critical operations.
 
