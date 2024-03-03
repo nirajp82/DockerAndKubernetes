@@ -13,7 +13,8 @@ Docker's purpose and key features:
 
 5. **Microservices Architecture**: Docker is often used in microservices architectures, where applications are broken down into smaller, decoupled services. Each service runs in its own container, enabling teams to independently develop, deploy, and scale components of the application.
 
-6. **DevOps Integration**: Docker integrates seamlessly with continuous integration and continuous deployment (CI/CD) pipelines, enabling automated testing, deployment, and scaling of applications. This accelerates the software development lifecycle and improves collaboration between development and operations teams.
+6. **DevOps Integration**: Docker integrates seamlessly with continuous integration and continuous deployment (CI/CD) pipelines, enabling automated testing, deployment, and scaling of applications. This accelerates the software development lifecycle and improves collaboration between development and operations teams. Docker container uses less storage (KBs/MBs) vs VMs are of few GBs
+
 
 Overall, Docker simplifies the process of building, shipping, and running applications, making it an essential tool for modern software development and deployment workflows.
 
@@ -25,6 +26,9 @@ Docker containers and virtual machines (VMs) are both technologies used for runn
 1. **Architecture**:
    - Docker Containers: Containers are lightweight because they share the host system's kernel and only contain the application and its dependencies. They utilize the host OS for system calls.
    - Virtual Machines: VMs, on the other hand, run a complete operating system and allocate resources like CPU, memory, and storage independently. Each VM requires its own operating system kernel.
+   - <img width="886" alt="image" src="https://github.com/nirajp82/DockerAndKubernetes/assets/61636643/5a99414b-1dcd-4e60-8d4f-2447bdcdc646">
+   Reference: https://www.geeksforgeeks.org/docker-or-virtual-machines-which-is-a-better-choice/
+
 
 2. **Resource Utilization**:
    - Containers: Containers are more efficient in terms of resource utilization because they share the host OS kernel and avoid the overhead of running multiple operating system instances.
