@@ -44,9 +44,7 @@ The `docker rmi` command removes one or more specified images from your local sy
 
 * `docker pull image-info`: Pull an Image from Docker Hub
 To fetch an image from the Docker Hub repository, employ `docker pull` followed by the image's name. This command downloads the specified image, making it available for creating containers.
-
-* `docker pull nirajp82/my_first_docker_image`: Pull a Specific Image from Docker Hub
-If you want a particular image, specify the repository and image name in the `docker pull` command. This allows you to download customized or specific images for your projects.
+  - `docker pull nirajp82/my_first_docker_image`: Pull a Specific Image from Docker Hub. If you want a particular image, specify the repository and image name in the `docker pull` command. This allows you to download customized or specific images for your projects.
 
 * `docker logout`
 `docker logout` command logs out the Docker registry associated with the Docker CLI. It is essential for security and managing different Docker registries. After logging out, you need to log in again to perform any registry-related operations.
