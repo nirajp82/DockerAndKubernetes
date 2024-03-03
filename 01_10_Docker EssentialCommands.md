@@ -39,6 +39,9 @@ To clean up your system, use `docker rm` followed by the container's ID or name.
 * `docker rm -f container-id` or `name`: Remove a Running Container Forcefully
 Forcibly remove a running container by adding the `-f` flag to `docker rm`. Be cautious when using this command, as it terminates the container immediately, potentially leading to data loss.
 
+* `docker rmi image-id`
+The `docker rmi` command removes one or more specified images from your local system. Replace `image-id` with the ID of the image you want to remove. This is useful for cleaning up unused or unwanted images to free up disk space.
+
 * `docker pull image-info`: Pull an Image from Docker Hub
 To fetch an image from the Docker Hub repository, employ `docker pull` followed by the image's name. This command downloads the specified image, making it available for creating containers.
 
@@ -65,9 +68,6 @@ The `docker container run` command creates and runs a new container based on the
 
 * `docker system prune`
 `docker system prune` removes all stopped containers, unused networks, dangling images, and build cache. It helps clean up your system by removing unused resources, freeing up disk space, and improving system performance.
-
-* `docker rmi image-id`
-The `docker rmi` command removes one or more specified images from your local system. Replace `image-id` with the ID of the image you want to remove. This is useful for cleaning up unused or unwanted images to free up disk space.
 
 * `docker logs <container id> --follow`
 Adding the `--follow` flag to `docker logs` allows you to continuously stream the logs of a container, displaying new log messages as they are generated. This is useful for real-time monitoring of container activities.
