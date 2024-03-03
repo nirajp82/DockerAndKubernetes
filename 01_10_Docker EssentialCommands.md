@@ -89,9 +89,7 @@ These Docker commands provide essential functionalities for managing containers,
 *For more detailed information, check out the official [Docker Documentation](https://docs.docker.com/).*
 
 
-#
-#
-#
+# docker exec vs docker run
 Both `docker exec -it <container-id> sh` and `docker run -it <container-id> sh` commands can be used to access an interactive shell inside a running Docker container, but they serve different purposes and have distinct behaviors:
 
 ### 1. `docker exec -it <container-id> sh`:
