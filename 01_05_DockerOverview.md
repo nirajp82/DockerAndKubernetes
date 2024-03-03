@@ -29,7 +29,6 @@ Docker containers and virtual machines (VMs) are both technologies used for runn
    - <img width="886" alt="image" src="https://github.com/nirajp82/DockerAndKubernetes/assets/61636643/5a99414b-1dcd-4e60-8d4f-2447bdcdc646">
    Reference: https://www.geeksforgeeks.org/docker-or-virtual-machines-which-is-a-better-choice/
 
-
 2. **Resource Utilization**:
    - Containers: Containers are more efficient in terms of resource utilization because they share the host OS kernel and avoid the overhead of running multiple operating system instances.
    - Virtual Machines: VMs require more resources because they run a complete guest operating system on top of the host OS.
@@ -57,5 +56,17 @@ Docker containers and virtual machines (VMs) are both technologies used for runn
 
 In summary, Docker containers and virtual machines offer different levels of isolation and resource utilization, each suited to different use cases. Containers are lightweight and efficient, making them ideal for microservices architectures and cloud-native applications. VMs provide stronger isolation and security, making them better suited for running legacy applications and workloads that require strict isolation.
 
-Whats the difference between Image and Containers?
-What is the docker file and whats the purpose of it?
+## What is the docker file and whats the purpose of it?
+A Dockerfile is a text file that contains a set of instructions used to build a Docker image. Docker images are essentially templates used to create Docker containers, which are lightweight, portable, and executable environments that encapsulate an application and its dependencies.
+
+The purpose of a Dockerfile is to define the steps required to assemble a Docker image. These steps typically include:
+
+1. **Base Image Selection**: Specify the base image upon which your Docker image will be built. This base image provides the foundation for your application and includes the operating system and any pre-installed dependencies.
+
+2. **Environment Setup**: Install any additional software packages or dependencies required by your application. This may include libraries, frameworks, or runtime environments needed to run your application.
+
+3. **Application Configuration**: Copy application code and configuration files into the Docker image. This ensures that your application is properly configured and ready to run within the container environment.
+
+4. **Container Execution Commands**: Define the commands that will be executed when the Docker container is launched. This typically includes specifying the entry point for your application and any additional runtime parameters.
+
+By using a Dockerfile, developers can automate the process of building Docker images, making it easy to create consistent, reproducible environments for their applications. Dockerfiles also enable version control and collaboration, allowing teams to track changes to the build process and ensure that images are built and deployed consistently across different environments.
