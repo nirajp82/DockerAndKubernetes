@@ -25,5 +25,6 @@
    - **Containers** share the host OS kernel, making them **lightweight (MB-sized)** and **faster** (seconds to start).  
    - **Virtual Machines** run full OS instances, making them **heavier (GB-sized)** and **slower** (minutes to start).  
    - **Containers have less isolation** than VMs but are more efficient for application deployment.  
+   ![image](https://github.com/user-attachments/assets/76c1213f-7feb-4160-a998-da87ed202d00)
 
 
