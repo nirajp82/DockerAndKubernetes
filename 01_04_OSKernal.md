@@ -19,3 +19,11 @@
    - **Linux containers require a Linux kernel.**  
    - **Windows Docker installs a lightweight Linux VM** in the background to support them.  
    - **Windows containers** can run natively on Windows, but **Linux containers need WSL2/Hyper-V.**
+   - Containers share the same OS kernel, making them lightweight and faster to start compared to Virtual Machines (VMs).
+  
+5. **Containers vs. Virtual Machines**  
+   - **Containers** share the host OS kernel, making them **lightweight (MB-sized)** and **faster** (seconds to start).  
+   - **Virtual Machines** run full OS instances, making them **heavier (GB-sized)** and **slower** (minutes to start).  
+   - **Containers have less isolation** than VMs but are more efficient for application deployment.  
+
+
