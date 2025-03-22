@@ -24,7 +24,7 @@ This means a container is **not** like a traditional operating system that runs 
 
   For example:  
 - If a container is built to run a web server, it stays alive as long as the web server is running.  
-- If a container is built to just run a small calculation, it will **exit as soon as the calculation is done**.  
+- If a container is built to just run a small calculation, it will **exit as soon as the calculation is done**.
 
 This is **different from a virtual machine (VM)**, which runs a full operating system continuously, even if nothing is happening.  
 ---
