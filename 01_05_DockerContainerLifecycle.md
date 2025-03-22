@@ -20,7 +20,13 @@ Docker follows these steps:
 
 This means a container is **not** like a traditional operating system that runs indefinitely. Instead, it is **task-driven**—it starts, completes its assigned task, and then exits. Think of a container as a worker:  
 - If you give the worker a job, they will do it.  
-- Once the job is done, the worker leaves.  
+- Once the job is done, the worker leaves.
+
+  For example:  
+- If a container is built to run a web server, it stays alive as long as the web server is running.  
+- If a container is built to just run a small calculation, it will **exit as soon as the calculation is done**.  
+
+This is **different from a virtual machine (VM)**, which runs a full operating system continuously, even if nothing is happening.  
 ---
 
 #### **3. What Happens If There Is No Task Running?**  
