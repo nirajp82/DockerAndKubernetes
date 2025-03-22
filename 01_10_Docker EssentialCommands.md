@@ -121,8 +121,6 @@ After pulling an image, you can verify it with:
 docker images
 ```
 
-Would you like a more detailed explanation of pulling images from private registries or handling authentication? 🚀
-
 * `docker ps`: 
 List All Running Containers. The `docker ps` command provides a snapshot of all your currently running containers. It offers a quick overview of the containers' names, IDs, statuses, and resource usage.
 
