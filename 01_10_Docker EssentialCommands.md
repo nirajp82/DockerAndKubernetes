@@ -149,7 +149,72 @@ To restart an already running container, employ `docker restart` followed by the
 
 * `docker port container-id`: List Port Mappings of a Container
 With `docker port`, you can inspect the port mappings of a specific container. It reveals the internal ports mapped to the host system, facilitating network configuration.
+### **`docker exec` Command**
+The `docker exec` command is used to run a command inside an already running container. This is useful for debugging, interacting with applications inside containers, or running additional processes.
 
+---
+
+### **Syntax**
+```bash
+docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+```
+
+### **Breaking it Down**
+1. **`docker exec`** → The command to execute a process inside a running container.
+2. **`[OPTIONS]`** → Flags that modify behavior (e.g., `-it` for interactive mode).
+3. **`CONTAINER`** → The name or ID of the running container.
+4. **`COMMAND [ARG...]`** → The command and its arguments to run inside the container.
+
+---
+
+### **Common Options**
+| Option | Description |
+|---------|-------------|
+| `-d` | Runs the command in the background (detached mode) |
+| `-i` | Keeps STDIN open (useful for interactive commands) |
+| `-t` | Allocates a pseudo-TTY (terminal) |
+| `-u username` | Runs the command as a specific user inside the container |
+| `--privileged` | Grants extended privileges inside the container |
+
+---
+
+### **Examples**
+#### **1. Open an interactive Bash shell in a running container**
+```bash
+docker exec -it mycontainer /bin/bash
+```
+- `-it` → Interactive mode with a terminal.
+- `mycontainer` → The name (or ID) of the running container.
+- `/bin/bash` → Starts a Bash shell inside the container.
+
+#### **2. Run a simple command inside a container**
+```bash
+docker exec mycontainer ls /app
+```
+- Lists the contents of the `/app` directory inside `mycontainer`.
+
+#### **3. Run a command as a specific user**
+```bash
+docker exec -u root mycontainer whoami
+```
+- Runs `whoami` as the `root` user inside the container.
+
+#### **4. Execute a command in a detached mode**
+```bash
+docker exec -d mycontainer touch /tmp/newfile
+```
+- Runs `touch /tmp/newfile` inside `mycontainer` without waiting for output.
+
+---
+
+### **Difference Between `docker exec` and `docker run`**
+| Feature | `docker exec` | `docker run` |
+|---------|--------------|--------------|
+| Runs inside a running container? | ✅ Yes | ❌ No (creates a new container) |
+| Requires an existing container? | ✅ Yes | ❌ No |
+| Useful for debugging? | ✅ Yes | ❌ No |
+| Runs additional commands in an existing environment? | ✅ Yes | ❌ No |
+ 
 * `docker exec -it container-id /bin/sh`  or `docker container exec -it f42d redis-cli`
 Run a command in a running container. Interactive terminal Connect to linux container and execute commands in container.
 For ex: If we want to get access to the redis CLI for the running redis container we can achieve this using the exec command.
