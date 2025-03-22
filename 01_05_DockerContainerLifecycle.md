@@ -34,7 +34,7 @@ If you start a container **without specifying a task**, it will start and immedi
 
 ##### **Example 1: Running a Container Without a Task**  
 ```bash
-docker run my-container
+docker run ubuntu 
 ```  
 - The container starts but immediately **exits** because there is no running process inside.  
 - If you check running containers:  
