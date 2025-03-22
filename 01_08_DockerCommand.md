@@ -192,6 +192,9 @@ docker login -u username -p password
 docker logout
 ```
 
+## **docker version ** 
+- docker version provides detailed information about your Docker installation, including the Docker client and server version, build date, and other relevant details. It helps you verify the version you are running and check for updates.
+
 ## **Final Thoughts** 🏁
 Master these commands to become a Docker expert! Check out the official [Docker Docs](https://docs.docker.com/) for more insights. 🚀
 
