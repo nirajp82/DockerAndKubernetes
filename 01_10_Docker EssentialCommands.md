@@ -59,6 +59,69 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
    ```
    - `-v /data:/app/data` → Mounts `/data` from the host to `/app/data` in the container
    - `ls /app/data` → Lists the contents of `/app/data` inside the container
+ 
+### **`docker pull` Command**
+The `docker pull` command is used to download (pull) a Docker image from a remote registry, typically [Docker Hub](https://hub.docker.com/), but it can also be from private registries.
+
+### **Syntax**
+```bash
+docker pull [OPTIONS] IMAGE[:TAG|@DIGEST]
+```
+
+### **Breaking it Down**
+1. **`docker pull`** → The command to fetch an image.
+2. **`[OPTIONS]`** → Optional flags to modify the behavior (e.g., `--quiet` for silent mode).
+3. **`IMAGE`** → The name of the image you want to download (e.g., `nginx`).
+4. **`[:TAG]` or `[@DIGEST]`** → Optional version identifiers:
+   - `:TAG` → Specifies the image version (e.g., `ubuntu:22.04`).
+   - `@DIGEST` → A unique identifier for an exact image version.
+
+---
+
+### **Examples**
+#### **1. Pull the latest version of an image**
+```bash
+docker pull ubuntu
+```
+- By default, Docker pulls the `latest` tag if no version is specified.
+- Equivalent to:
+  ```bash
+  docker pull ubuntu:latest
+  ```
+
+#### **2. Pull a specific version of an image**
+```bash
+docker pull nginx:1.21
+```
+- Downloads version `1.21` of the `nginx` image.
+
+#### **3. Pull an image using a digest**
+```bash
+docker pull ubuntu@sha256:xyz123...
+```
+- Ensures you get an exact version of the image, even if the `latest` tag changes.
+
+#### **4. Pull an image from a private registry**
+```bash
+docker pull myregistry.com/myimage:latest
+```
+- Downloads an image from a custom registry (`myregistry.com`).
+
+#### **5. Pull an image without progress output**
+```bash
+docker pull --quiet redis
+```
+- `--quiet` suppresses progress output.
+
+---
+
+### **Check Pulled Images**
+After pulling an image, you can verify it with:
+```bash
+docker images
+```
+
+Would you like a more detailed explanation of pulling images from private registries or handling authentication? 🚀
 
 * `docker ps`: 
 List All Running Containers. The `docker ps` command provides a snapshot of all your currently running containers. It offers a quick overview of the containers' names, IDs, statuses, and resource usage.
