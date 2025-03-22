@@ -1,4 +1,64 @@
 # Understanding Docker Commands: A Comprehensive Guide
+* `docker run`: The docker run command is used to create and start a container from a specified Docker image. The general syntax is:
+
+```bash
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+```
+
+### **Breaking it Down**
+1. **`docker run`** → This is the command itself.
+2. **`[OPTIONS]`** → These are optional flags to modify the container’s behavior (e.g., `-d` for detached mode, `-p` to publish ports, etc.).
+3. **`IMAGE`** → This is the name of the Docker image you want to run (e.g., `nginx`, `ubuntu:latest`).
+4. **`[COMMAND]` `[ARG...]`** → Optional command and arguments that override the image’s default behavior.
+
+---
+
+### **Common Options**
+| Option | Description |
+|---------|-------------|
+| `-d` | Run the container in detached mode (background) |
+| `-it` | Run interactively with a TTY (useful for debugging) |
+| `--name mycontainer` | Assigns a name (`mycontainer`) to the container |
+| `-p 8080:80` | Maps port 8080 on the host to port 80 in the container |
+| `-v /host/path:/container/path` | Mounts a volume (bind mount) from the host to the container |
+| `--rm` | Removes the container after it stops |
+| `-e ENV_VAR=value` | Sets environment variables inside the container |
+| `--network network_name` | Connects the container to a specific network |
+| `--restart always` | Ensures the container restarts if it stops unexpectedly |
+
+---
+
+### **Examples**
+- **Run an interactive Ubuntu container**
+   ```bash
+   docker run -it ubuntu /bin/bash
+   ```
+   - `-it` → Interactive mode with a terminal
+   - `ubuntu` → Uses the Ubuntu image
+   - `/bin/bash` → Runs the Bash shell inside the container
+
+- **Run Nginx in detached mode with port mapping**
+   ```bash
+   docker run -d -p 8080:80 nginx
+   ```
+   - `-d` → Detached mode (runs in the background)
+   - `-p 8080:80` → Maps host port 8080 to container port 80
+   - `nginx` → Uses the Nginx image
+
+- **Run a container and remove it after it stops**
+   ```bash
+   docker run --rm ubuntu echo "Hello, Docker!"
+   ```
+   - `--rm` → Removes the container after execution
+   - `ubuntu` → Uses the Ubuntu image
+   - `echo "Hello, Docker!"` → Runs a simple command inside the container
+
+- **Run a container with a mounted volume**
+   ```bash
+   docker run -v /data:/app/data ubuntu ls /app/data
+   ```
+   - `-v /data:/app/data` → Mounts `/data` from the host to `/app/data` in the container
+   - `ls /app/data` → Lists the contents of `/app/data` inside the container
 
 * `docker ps`: 
 List All Running Containers. The `docker ps` command provides a snapshot of all your currently running containers. It offers a quick overview of the containers' names, IDs, statuses, and resource usage.
