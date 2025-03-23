@@ -1,6 +1,6 @@
-# Docker Commands: Your Ultimate Cheat Sheet 🚀
+# Docker Commands: Your Ultimate Cheat Sheet 
 
-## **Running Containers** 🏃‍♂️
+## **Running Containers** 
 ### **`docker run`** - Create and Start a Container
 The `docker run` command is used to create and start a container from a specified Docker image.
 ```bash
@@ -131,6 +131,8 @@ Learn more at https://github.com/nirajp82/DockerAndKubernetes/blob/main/03_02_Li
 | Requires an existing container? | ✅ Yes | ❌ No |
 | Useful for debugging? | ✅ Yes | ❌ No |
 | Runs additional commands in an existing environment? | ✅ Yes | ❌ No |
+| Common use case | Debugging, inspecting, or running commands inside a running container | Starting a fresh interactive session from an image |
+| Summary | - Use `docker exec -it` when you need to interact with an already running container. | Use `docker run -it` when you want to create and start a new container interactively.|
 
  
 ## **Handling Images** 🎨
@@ -179,13 +181,13 @@ docker stats
 docker top container-id
 ```
 
-## **Cleanup & Maintenance** 🧹
+## **Cleanup & Maintenance** 
 ### **`docker system prune`** - Clean Up Unused Resources
 ```bash
 docker system prune
 ```
 
-## **Authentication & Registry** 🔑
+## **Authentication & Registry** 
 ### **`docker login` / `docker logout`**
 ```bash
 docker login -u username -p password
@@ -196,5 +198,5 @@ docker logout
 - docker version provides detailed information about your Docker installation, including the Docker client and server version, build date, and other relevant details. It helps you verify the version you are running and check for updates.
 
 ## **Final Thoughts** 🏁
-Master these commands to become a Docker expert! Check out the official [Docker Docs](https://docs.docker.com/) for more insights. 🚀
+Master these commands to become a Docker expert! Check out the official [Docker Docs](https://docs.docker.com/) for more insights. 
 
