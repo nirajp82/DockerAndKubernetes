@@ -79,11 +79,34 @@ services:
 This makes it easy to run and manage multiple containers with their own port mappings.
 
 ### 9. **Persisting Data Using Volumes**
-To persist data in a Docker container, you need to use **volumes** or **bind mounts**. Containers have an isolated file system, meaning that if you delete a container, its data is lost. To persist data outside of the container:
+To persist data using volumes in Docker, you can use the `-v` or `--mount` option to create volumes or bind mounts, ensuring that your data is stored outside of the container. This helps to retain data even if the container is removed or recreated.
+
+Here’s an example for a Linux environment:
+
 ```bash
 docker run -v /opt/data:/var/lib/mysql mysql
 ```
-This command maps the **host directory `/opt/data`** to the **container directory `/var/lib/mysql`**, ensuring that MySQL’s database files are stored on the host and not lost when the container is removed.
+
+This command maps the host directory `/opt/data` to the container directory `/var/lib/mysql`, ensuring that MySQL’s database files are stored on the host machine. The data will be preserved on the host even if the container is deleted.
+
+### Windows Example
+
+In Windows, paths are written differently, and you’ll typically use `C:\` for the directory paths. Here’s an example using Docker on Windows:
+
+```bash
+docker run -v C:\path\to\host\directory:/var/lib/mysql mysql
+```
+
+Make sure that the host directory (in this case, `C:\path\to\host\directory`) exists and that Docker has permission to access it.
+
+Alternatively, you can use Docker volumes, which are managed by Docker and not tied to specific paths on the host machine. Here’s how you would use a volume:
+
+```bash
+docker run -v mysql_data:/var/lib/mysql mysql
+```
+
+This command uses a Docker-managed volume (`mysql_data`) to persist MySQL data. This is a better option for portability because the volume isn’t tied to specific paths on the host machine, making it more flexible.
+
 
 ### 10. **Inspecting Containers**
 To inspect the configuration of a running container, including its IP address, mounts, network settings, and more, use the `docker inspect` command:
