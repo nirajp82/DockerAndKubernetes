@@ -1,5 +1,3 @@
-Certainly! Let me provide a more detailed and clearer explanation, specifically about the IP addresses, both for the Docker host (machine running Docker) and the individual containers.
-
 ### **Docker Port Mapping (Port Publishing) Explained**
 
 In Docker, **port mapping** is the mechanism that allows external access to services running inside containers. When you run a containerized application, Docker manages both the **host** (the machine running Docker) and the **container** (where your application is running). Here's a detailed breakdown:
