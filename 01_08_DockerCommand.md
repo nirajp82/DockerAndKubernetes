@@ -122,7 +122,6 @@ docker exec -u root mycontainer whoami  # Run command as root
 Run a command in a running container. Interactive terminal Connect to linux container and execute commands in container.
 For ex: If we want to get access to the redis CLI for the running redis container we can achieve this using the exec command.
 ![image](https://github.com/nirajp82/DockerAndKubernetes/assets/61636643/2dd18b7f-baf2-4ab8-a2b8-d32b8eb21d49)
-Learn more at https://github.com/nirajp82/DockerAndKubernetes/blob/main/03_02_Linux_Std_Comm_Channel.md
 
 ### **Difference Between `docker exec` and `docker run`**
 | Feature | `docker exec` | `docker run` |
@@ -196,6 +195,201 @@ docker logout
 
 ## **docker version** 
 - docker version provides detailed information about your Docker installation, including the Docker client and server version, build date, and other relevant details. It helps you verify the version you are running and check for updates.
+
+## 🚀 Understanding `docker stop` vs `docker kill`
+
+### `docker stop` - Gracefully Stops a Running Container
+The `docker stop` command allows a running container to shut down properly.
+- It **sends a SIGTERM** signal to the container’s main process.
+- The container gets time to **clean up resources** before stopping.
+- If the process does not terminate within **10 seconds**, Docker **forcefully kills** it with **SIGKILL**.
+
+**Example:**
+```sh
+docker stop container-id
+```
+
+### `docker kill` - Immediately Terminates a Container
+The `docker kill` command abruptly stops a running container **without a grace period**.
+- It **sends a SIGKILL** signal, terminating the process immediately.
+- This might result in **data corruption or incomplete shutdown**.
+
+**Example:**
+```sh
+docker kill container-id
+```
+
+### When to Use?
+| Scenario                           | Use `docker stop` | Use `docker kill` |
+|------------------------------------|------------------|------------------|
+| Allow graceful shutdown            | ✅ Yes          | ❌ No           |
+| Application is unresponsive        | ❌ No           | ✅ Yes          |
+| Avoid data loss                    | ✅ Yes          | ❌ No           |
+
+---
+
+## 🛠️ `docker exec` vs `docker run`
+
+| Feature                      | `docker exec`                        | `docker run` |
+|------------------------------|--------------------------------------|-------------|
+| Runs inside an existing container? | ✅ Yes | ❌ No (creates a new container) |
+| Requires a running container? | ✅ Yes | ❌ No |
+| Runs additional commands in an active environment? | ✅ Yes | ❌ No |
+| Best for debugging/interacting with live containers? | ✅ Yes | ❌ No |
+
+### `docker exec` - Run a Command in a Running Container
+Used for **interacting** with an already running container.
+
+**Example:** Open an interactive shell inside a running container:
+```sh
+docker exec -it container-id /bin/bash
+```
+
+### `docker run` - Start a New Container
+Used to **create and run** a new container from an image.
+
+**Example:** Start a new Ubuntu container interactively:
+```sh
+docker run -it ubuntu /bin/bash
+```
+
+**Key Difference:**
+- `docker exec` **attaches to an existing container**.
+- `docker run` **creates a new container instance**.
+
+---
+
+## 📥 Understanding `docker pull`
+
+The `docker pull` command fetches images from Docker Hub or private registries.
+
+### Syntax:
+```sh
+docker pull [OPTIONS] IMAGE[:TAG|@DIGEST]
+```
+
+### Examples:
+- Pull the latest Ubuntu image:
+  ```sh
+  docker pull ubuntu
+  ```
+- Pull a specific version of Nginx:
+  ```sh
+  docker pull nginx:1.21
+  ```
+- Pull an image using a digest:
+  ```sh
+  docker pull ubuntu@sha256:xyz123...
+  ```
+- Pull from a private registry:
+  ```sh
+  docker pull myregistry.com/myimage:latest
+  ```
+
+---
+
+## 🔄 Standard Input/Output (I/O) in Docker
+
+Docker containers interact with input/output streams using:
+- `stdin` - Standard input (used to send data to a container)
+- `stdout` - Standard output (container’s normal output)
+- `stderr` - Standard error (container error logs)
+
+### Running a container while keeping `stdin` open
+```sh
+docker run -i ubuntu cat
+```
+
+### Running an interactive shell (`stdin`, `stdout`, `stderr` enabled)
+```sh
+docker run -it ubuntu /bin/bash
+```
+
+---
+
+## 📜 Advanced Logging with `docker logs`
+
+The `docker logs` command helps view logs from a container.
+
+### Common Flags:
+| Flag | Description |
+|------|-------------|
+| `--follow` | Stream logs live |
+| `--since TIME` | Show logs since a timestamp (e.g., `--since 10m`) |
+| `--tail=50` | Show the last 50 lines of logs |
+| `--timestamps` | Show timestamps on each log entry |
+
+### Example Commands:
+- View container logs:
+  ```sh
+  docker logs container-id
+  ```
+- Continuously stream logs:
+  ```sh
+  docker logs --follow container-id
+  ```
+- Show logs from the last 30 minutes:
+  ```sh
+  docker logs --since 30m container-id
+  ```
+- Show only the last 100 lines:
+  ```sh
+  docker logs --tail=100 container-id
+  ```
+
+---
+
+## 🧹 Cleaning Up Docker Resources
+
+### `docker system prune` - Remove Unused Resources
+```sh
+docker system prune
+```
+This removes:
+- **Stopped containers**
+- **Dangling images**
+- **Unused networks**
+- **Build cache**
+
+Add the `-a` flag to remove **all unused images**:
+```sh
+docker system prune -a
+```
+
+---
+
+## 📊 Monitoring Docker Performance
+
+### `docker stats` - View Container Resource Usage
+```sh
+docker stats
+```
+Displays live CPU, memory, network, and disk usage for all running containers.
+
+### `docker top` - Show Running Processes in a Container
+```sh
+docker top container-id
+```
+Lists all active processes inside a running container.
+
+---
+
+## 🔐 Docker Authentication
+
+### `docker login` - Authenticate with a Docker Registry
+```sh
+docker login -u username -p password
+```
+After logging in, you can push/pull private images.
+
+### `docker logout` - Log Out from a Docker Registry
+```sh
+docker logout
+```
+This ensures your credentials are removed for security.
+
+---
+
 
 ## **Final Thoughts** 🏁
 Master these commands to become a Docker expert! Check out the official [Docker Docs](https://docs.docker.com/) for more insights. 
