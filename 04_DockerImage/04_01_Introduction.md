@@ -50,6 +50,17 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get install -y python3 python3-pip
 
 # Step 3: Set the working directory inside the container
+✅ **Without `WORKDIR`**:  
+- The default directory is `/` (root).
+- Docker’s default working directory is `/` (root directory).
+- The `ENTRYPOINT ["python3", "app.py"]` command will run in `/`, not `/app`.
+- Since `app.py` is in `/app`, **Docker won’t find it** and will throw an error.
+- We must manually change directories before executing commands. Without `WORKDIR /app`, we need to `cd /app` manually every time.
+
+✅ **With `WORKDIR /app`**:  
+- Docker automatically sets `/app` as the **default working directory**.
+- All commands execute inside `/app` without needing `cd`.
+- The `ENTRYPOINT` command (`python3 app.py`) runs smoothly.
 WORKDIR /app
 
 # Step 4: Copy application files to the container
