@@ -1,9 +1,4 @@
-```markdown
-# 🐳 Docker: Commands, Arguments, and Entrypoints
-
-In this lecture, we will look at **commands**, **arguments**, and **entrypoints** in Docker.
-
----
+### Docker: Commands, Arguments, and Entrypoints
 
 ## 📘 Simple Scenario
 
