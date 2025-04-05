@@ -194,10 +194,3 @@ Example:
 ✅ Using `docker run`, you can start a container from your image.
 
 ---
-
-## **Next Steps**
-🔹 Try creating your own Dockerfile for a different application.  
-🔹 Experiment with **multi-stage builds** for smaller images.  
-🔹 Learn about **Docker Compose** to manage multi-container applications.
-
-Would you like a hands-on tutorial with a different example, such as a **Node.js or .NET app**? 🚀
