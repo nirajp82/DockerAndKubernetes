@@ -1,7 +1,3 @@
-Perfect! Here's your **original guide rewritten for a .NET Core Web API app**, keeping the same structure and detailed explanations — just replacing the Flask example with .NET.
-
----
-
 # Creating a Docker Image for a .NET Core Web API Application
 
 ## Overview
@@ -94,38 +90,39 @@ A `Dockerfile` is a script that tells Docker how to build an image.
 In the root of your project (`MyWebApiApp`), create a file named `Dockerfile` (no extension) with the following content:
 
 ```dockerfile
-# Step 1: Build stage
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+# Step 1: Use the .NET SDK image to build the app
+FROM mcr.microsoft.com/dotnet/sdk AS build
 WORKDIR /source
 
 # Copy the project and restore dependencies
-COPY *.csproj ./
-RUN dotnet restore
+COPY MyDockerWebApiApp/*.csproj ./MyDockerWebApiApp/
+RUN dotnet restore ./MyDockerWebApiApp/MyDockerWebApiApp.csproj
 
 # Copy everything else and publish the release
-COPY . ./
+COPY MyDockerWebApiApp/. ./MyDockerWebApiApp/
+WORKDIR /source/MyDockerWebApiApp
 RUN dotnet publish -c Release -o /app/publish
 
-# Step 2: Runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+# Step 2: Use the ASP.NET runtime image
+FROM mcr.microsoft.com/dotnet/aspnet AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 
 # Set the startup command
-ENTRYPOINT ["dotnet", "MyWebApiApp.dll"]
+ENTRYPOINT ["dotnet", "MyDockerWebApiApp.dll"]
 ```
 
 ### Explanation of Each Line:
-1. `FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build` → Uses the SDK image to compile the project.
+1. `FROM mcr.microsoft.com/dotnet/sdk AS build` → Uses the SDK image to compile the project.
 2. `WORKDIR /source` → Sets the working directory inside the container to `/source`.
-3. `COPY *.csproj ./` → Copies the project file.
-4. `RUN dotnet restore` → Restores NuGet packages.
-5. `COPY . ./` → Copies the entire source code.
-6. `RUN dotnet publish -c Release -o /app/publish` → Builds and publishes to a folder.
-7. `FROM mcr.microsoft.com/dotnet/aspnet:6.0` → Switches to a smaller runtime image.
+3. `COPY MyDockerWebApiApp/*.csproj ./` → Copies the project file from the `MyDockerWebApiApp` directory.
+4. `RUN dotnet restore ./MyDockerWebApiApp/MyDockerWebApiApp.csproj` → Restores NuGet packages.
+5. `COPY MyDockerWebApiApp/. ./` → Copies the entire source code from the `MyDockerWebApiApp` directory.
+6. `RUN dotnet publish -c Release -o /app/publish` → Builds and publishes to a folder inside the container.
+7. `FROM mcr.microsoft.com/dotnet/aspnet` → Switches to a smaller runtime image for the final container.
 8. `WORKDIR /app` → Sets the app working directory.
-9. `COPY --from=build /app/publish .` → Brings in the published output.
-10. `ENTRYPOINT ["dotnet", "MyWebApiApp.dll"]` → Runs the app when the container starts.
+9. `COPY --from=build /app/publish .` → Brings in the published output from the build stage.
+10. `ENTRYPOINT ["dotnet", "MyDockerWebApiApp.dll"]` → Runs the app when the container starts.
 
 ---
 
@@ -234,7 +231,3 @@ and stop it with:
 ```sh
 docker stop CONTAINER_ID
 ```
-
----
-
-Let me know if you want this guide as a Markdown or PDF file!
