@@ -136,5 +136,3 @@ CMD ["Hello, World!"]
 ### **Summary**:
 - **ENTRYPOINT**: Defines the main command and always runs when the container starts. Additional arguments are appended.
 - **CMD**: Defines default arguments for the command, but can be replaced entirely if new arguments are provided at runtime.
-
-Does that clear things up?
