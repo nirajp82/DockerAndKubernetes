@@ -80,171 +80,61 @@ So when we ran the Ubuntu container earlier, Docker:
 
 ---
 
-## 🔄 How Do You Specify a Different Command?
+Sure, let me explain it in simpler terms!
 
-You can **override** the default command by appending a new command in the `docker run` command.
+### **ENTRYPOINT vs CMD in Docker**
 
-For example:
-
-```bash
-docker run ubuntu sleep 5
-```
-
-This runs the `sleep` program, waits for 5 seconds, and then exits.
+Both `ENTRYPOINT` and `CMD` are used in a Dockerfile to define what command or application will be run inside the container when it's started. But they work slightly differently, especially in how they handle additional arguments passed to `docker run`.
 
 ---
 
-## 📦 Making the Change Permanent
+### **CMD** (Command)
+- **Purpose**: Defines the default command to run inside the container if no command is specified when running the container.
+- **Replacement behavior**: If you provide a command when you run the container (`docker run <container_name> <new_command>`), the `CMD` will be replaced entirely by the command you provide.
 
-If you want the image to **always run** the `sleep` command, you can create a custom image:
-
-### Dockerfile Example:
-
-```dockerfile
-FROM ubuntu
-CMD ["sleep", "5"]
+#### Example of CMD:
+```Dockerfile
+CMD ["echo", "Hello, World!"]
 ```
 
-> Note: The preferred format is **JSON array form** where:
-> - The **first element** is the executable (e.g., `sleep`)
-> - The following elements are arguments (e.g., `"5"`)
+- Running `docker run <container_name>` will execute `echo Hello, World!`.
+- Running `docker run <container_name> echo Goodbye!` will override the `CMD` and run `echo Goodbye!` instead.
 
-Then, build the image:
+### **ENTRYPOINT** (Entry Point)
+- **Purpose**: Defines a fixed command to run when the container starts, and **any additional arguments passed** via `docker run` will be **added** to this command.
+- **Appended behavior**: If you specify any command or arguments when running the container, those arguments are **appended** to the `ENTRYPOINT`.
 
-```bash
-docker build -t ubuntu-sleeper .
+#### Example of ENTRYPOINT:
+```Dockerfile
+ENTRYPOINT ["echo"]
 ```
 
-And run it:
+- Running `docker run <container_name>` will execute `echo` (but nothing will be printed because no arguments are provided).
+- Running `docker run <container_name> Hello, World!` will execute `echo Hello, World!`.
 
-```bash
-docker run ubuntu-sleeper
-```
+### **Key Difference**: 
 
-This will **always sleep for 5 seconds** and then exit.
+- **CMD** provides a default command, but it can be **completely overridden** if you pass new arguments when running the container.
+- **ENTRYPOINT** locks in the command to run, and any additional arguments you pass are **appended** to the entrypoint command.
 
 ---
 
-## ⚙️ Changing the Sleep Duration
+### **Combining ENTRYPOINT and CMD**
+You can combine both `ENTRYPOINT` and `CMD` in the Dockerfile. This allows you to set a fixed entrypoint (with `ENTRYPOINT`) and a default argument (with `CMD`). If you provide arguments when running the container, the `ENTRYPOINT` remains the same, but the arguments from `CMD` can be overridden.
 
-Right now, the sleep time is **hardcoded** to 5 seconds.
-
-You could override it at runtime:
-
-```bash
-docker run ubuntu-sleeper sleep 10
+#### Example:
+```Dockerfile
+ENTRYPOINT ["echo"]
+CMD ["Hello, World!"]
 ```
 
-This works, but it's not very clean. The image name `ubuntu-sleeper` already implies it will sleep.
-
-Ideally, you'd want:
-
-```bash
-docker run ubuntu-sleeper 10
-```
-
-This should automatically invoke `sleep 10`.
+- Running `docker run <container_name>` will execute `echo Hello, World!` (because `CMD` provides the argument).
+- Running `docker run <container_name> Goodbye!` will execute `echo Goodbye!` (overriding `CMD`).
 
 ---
 
-## 🚪 Introducing ENTRYPOINT
+### **Summary**:
+- **ENTRYPOINT**: Defines the main command and always runs when the container starts. Additional arguments are appended.
+- **CMD**: Defines default arguments for the command, but can be replaced entirely if new arguments are provided at runtime.
 
-This is where the `ENTRYPOINT` instruction comes in.
-
-The `ENTRYPOINT` is **like `CMD`**, but with an important difference:
-
-- The command-line arguments passed to `docker run` are **appended** to the `ENTRYPOINT`.
-- With `CMD`, the arguments **replace** the default command entirely.
-
----
-
-### Dockerfile Example Using ENTRYPOINT
-
-```dockerfile
-FROM ubuntu
-ENTRYPOINT ["sleep"]
-```
-
-Then running:
-
-```bash
-docker run ubuntu-sleeper 10
-```
-
-Will effectively run:
-
-```bash
-sleep 10
-```
-
----
-
-## ⚠️ What If No Arguments Are Passed?
-
-If you run:
-
-```bash
-docker run ubuntu-sleeper
-```
-
-Then only the `sleep` command is executed **without an argument**, and you’ll see:
-
-```text
-sleep: missing operand
-```
-
-To fix this, you can combine `ENTRYPOINT` and `CMD`.
-
----
-
-## ✅ ENTRYPOINT + CMD Together
-
-```dockerfile
-FROM ubuntu
-ENTRYPOINT ["sleep"]
-CMD ["5"]
-```
-
-This way:
-
-- `docker run ubuntu-sleeper` → runs `sleep 5`
-- `docker run ubuntu-sleeper 10` → runs `sleep 10`
-
-> Reminder: To make this work correctly, **both `ENTRYPOINT` and `CMD` should be in JSON (exec) format**.
-
----
-
-## 🔄 Overriding ENTRYPOINT at Runtime
-
-What if you really want to change the `ENTRYPOINT` during runtime?
-
-You can do so with the `--entrypoint` flag.
-
-```bash
-docker run --entrypoint sleep2.0 ubuntu-sleeper 10
-```
-
-This overrides the image’s entrypoint, so the container will run:
-
-```bash
-sleep2.0 10
-```
-
----
-
-## 🧾 Summary
-
-- `CMD` defines default arguments or commands. It’s **fully overridden** by CLI input.
-- `ENTRYPOINT` defines the main command. CLI arguments are **appended**.
-- You can combine `ENTRYPOINT` and `CMD` for flexible behavior.
-- Use the **JSON array syntax** for consistency and reliability.
-- You can override `ENTRYPOINT` at runtime using the `--entrypoint` flag.
-
----
-
-That’s it for this lecture. See you in the next one! 🚀
-```
-
----
-
-Let me know if you want this as a downloadable `README.md` file or want to create a GitHub repo around it!
+Does that clear things up?
