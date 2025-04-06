@@ -54,6 +54,13 @@ The `CMD` instruction (short for **command**) defines the **default program** th
 - For **NGINX**, it starts the `nginx` command.
 - For **MySQL**, it starts the `mysqld` command.
 
+```docker
+FROM ubuntu:latest
+RUN apt-get -y update && apt-get -y install nginx
+COPY content/index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
 ---
 
 ## 🛠️ What Happens with the Ubuntu Image?
