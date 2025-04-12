@@ -124,15 +124,16 @@ For ex: If we want to get access to the redis CLI for the running redis containe
 
 - ![image](https://github.com/nirajp82/DockerAndKubernetes/assets/61636643/2dd18b7f-baf2-4ab8-a2b8-d32b8eb21d49)
 
-### **Difference Between `docker exec` and `docker run`**
-| Feature | `docker exec` | `docker run` |
-|---------|--------------|--------------|
+| **Feature** | **`docker exec`** | **`docker run`** |
+|-------------|-------------------|------------------|
 | Runs inside a running container? | ✅ Yes | ❌ No (creates a new container) |
 | Requires an existing container? | ✅ Yes | ❌ No |
 | Useful for debugging? | ✅ Yes | ❌ No |
 | Runs additional commands in an existing environment? | ✅ Yes | ❌ No |
 | Common use case | Debugging, inspecting, or running commands inside a running container | Starting a fresh interactive session from an image |
-| Summary | - Use `docker exec -it` when you need to interact with an already running container. | Use `docker run -it` when you want to create and start a new container interactively.|
+| Key difference | Attaches to an **already running** container | **Creates and starts** a new container instance |
+| Example | `docker exec -it my-container bash` | `docker run -it ubuntu bash` |
+| Summary | Used to run commands **inside an existing** running container | Used to **create and run** a brand new container from an image |
 
  
 ## **Handling Images** 🎨
@@ -226,37 +227,6 @@ docker kill container-id
 | Allow graceful shutdown            | ✅ Yes          | ❌ No           |
 | Application is unresponsive        | ❌ No           | ✅ Yes          |
 | Avoid data loss                    | ✅ Yes          | ❌ No           |
-
----
-
-## 🛠️ `docker exec` vs `docker run`
-
-| Feature                      | `docker exec`                        | `docker run` |
-|------------------------------|--------------------------------------|-------------|
-| Runs inside an existing container? | ✅ Yes | ❌ No (creates a new container) |
-| Requires a running container? | ✅ Yes | ❌ No |
-| Runs additional commands in an active environment? | ✅ Yes | ❌ No |
-| Best for debugging/interacting with live containers? | ✅ Yes | ❌ No |
-
-### `docker exec` - Run a Command in a Running Container
-Used for **interacting** with an already running container.
-
-**Example:** Open an interactive shell inside a running container:
-```sh
-docker exec -it container-id /bin/bash
-```
-
-### `docker run` - Start a New Container
-Used to **create and run** a new container from an image.
-
-**Example:** Start a new Ubuntu container interactively:
-```sh
-docker run -it ubuntu /bin/bash
-```
-
-**Key Difference:**
-- `docker exec` **attaches to an existing container**.
-- `docker run` **creates a new container instance**.
 
 ---
 
