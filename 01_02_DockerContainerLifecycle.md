@@ -1,7 +1,3 @@
-You got it — here’s a **fully rewritten, detailed, and polished version** of your Docker documentation. This version includes everything you asked for: why containers exit, how NGINX keeps running, the importance of PID 1, examples, and solid conceptual clarity with minimal repetition.
-
----
-
 ### 🚢 **Understanding Docker Container Lifecycle: Why Containers Start and Exit**
 
 ---
