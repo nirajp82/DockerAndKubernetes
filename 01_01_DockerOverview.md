@@ -1,5 +1,3 @@
-## 🐳 **Docker Made Simple**
-
 ### 🚀 What Is Docker?
 
 **Docker** is a tool that helps developers **package, ship, and run apps**—without worrying about environment issues. It uses **containers**, which are like mini-computers that include everything an app needs to run (code + libraries + tools).
