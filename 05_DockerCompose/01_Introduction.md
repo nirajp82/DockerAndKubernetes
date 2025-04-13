@@ -64,7 +64,6 @@ docker-compose up --scale worker=3
 ## 🗳️ Example: The Voting App Architecture
 
 Visual overview of how the services are connected:
-
 ```
 +---------------+     +---------+       +------------+
 | Voting Web UI | --> |  Redis  | <---> |   Worker   |
@@ -81,9 +80,7 @@ Visual overview of how the services are connected:
                                 |    (Node.js)    |
                                 +-----------------+
 ```
-
 Each service is isolated in its own container, but they communicate through Docker's internal networking.
-
 ---
 
 ## 🚫 Problems Using Only `docker run`
@@ -181,6 +178,74 @@ db:
 ### 🚨 Result:
 - Good for simple development environments
 - Becomes fragile and unscalable for more than 2–3 containers
+
+
+## 🛠️ Why Some Services Use `build` vs `image` in Docker Compose
+
+In our `docker-compose.yml`, some services use `build`, and others use `image`. Here’s what that means and how Docker decides what to do:
+
+### 🔨 `build: ./some-path`
+
+Services like `vote`, `result`, and `worker` use `build` because they are **custom applications** written as part of this project. Docker Compose will:
+
+- Look into the specified directory (e.g., `./vote`) relative to the `docker-compose.yml` file.
+- Find a `Dockerfile` in that directory.
+- Use that `Dockerfile` to build a new image locally, including:
+  - Installing dependencies
+  - Copying source code
+  - Setting up environment variables, etc.
+
+#### Example from `docker-compose.yml`:
+```yaml
+vote:
+  build: ./vote
+  ports:
+    - "5000:80"
+```
+
+**Docker looks for this:**
+```
+./vote/
+├── Dockerfile
+├── app.py (or your app code)
+├── requirements.txt (or other dependencies)
+```
+
+This lets you control exactly how your app runs in the container.
+
+---
+
+### 📦 `image: <image-name>`
+
+Services like `redis` and `db` use `image` because they are **standard services** like databases or caches that already have official images on Docker Hub.
+
+When Docker Compose sees `image: redis`, it will:
+- Pull the `redis` image from Docker Hub (if it’s not already on your machine).
+- Use it as-is, without needing a `Dockerfile`.
+
+#### Example:
+```yaml
+db:
+  image: postgres
+```
+
+This is great for reliable, drop-in services that don’t require custom code or config at the image level.
+
+---
+
+### ✅ Summary Table
+
+| Service   | Uses `build` or `image` | Purpose             | Where Docker looks |
+|-----------|--------------------------|----------------------|---------------------|
+| `vote`    | `build: ./vote`          | Custom app frontend | `./vote/Dockerfile` |
+| `result`  | `build: ./result`        | Custom app backend  | `./result/Dockerfile` |
+| `worker`  | `build: ./worker`        | Background task app | `./worker/Dockerfile` |
+| `redis`   | `image: redis`           | Caching database    | Pulled from Docker Hub |
+| `db`      | `image: postgres`        | SQL database        | Pulled from Docker Hub |
+
+This combo gives you the best of both worlds:
+- **Custom-built services** for your own app logic.
+- **Prebuilt, production-grade images** for common infrastructure components.
 
 ## ⚡ Version 2 – Introducing Networks & Depends On
 
