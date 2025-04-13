@@ -11,11 +11,11 @@ Instead of running each container manually using `docker run`, you define everyt
 
 Imagine an app that consists of:
 
-- A **frontend** (Python Flask)
-- A **worker** (.NET)
-- A **PostgreSQL** database
-- A **Redis** cache
-- A **results app** (Node.js)
+- A **frontend** (Python Flask) - **vote** (Python web app) — users vote cats vs. dogs
+- A **worker** (.NET) - **worker** (.NET service) — reads from Redis, updates Postgres
+- A **PostgreSQL** database - **db** (Postgres) — stores final vote counts
+- A **Redis** cache - **redis** (In-memory store) — stores votes temporarily
+- A **results app** (Node.js) - **result** (Node.js app) — displays results
 
 Using just Dockerfiles and `docker run`, you'd have to:
 - Manually start each container
