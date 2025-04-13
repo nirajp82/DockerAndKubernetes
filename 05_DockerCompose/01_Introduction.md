@@ -329,7 +329,7 @@ networks:
 - Each network acts like a private internal LAN, and only services connected to the same network can communicate with each other.
 - Services on the **same network** can talk to each other using **service names**.
 - This setup allows for **security** and **modularity**—frontend stuff stays separate from backend internals.
-
+```
 +----------------+           +----------------+           +----------------+
 |                |           |                |           |                |
 |     vote       |<--------->|     result     |<--------->|     worker     |
@@ -346,7 +346,7 @@ networks:
 |     (backend)  |           |    (backend)   |           |                |
 |                |           |                |           |                |
 +----------------+           +----------------+           +----------------+
-
+```
 ### 🚀 How It Works:
 
 - **`frontend` network** allows the `vote` and `result` services to communicate and expose user-facing ports (like `5000:80`).
