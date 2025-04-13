@@ -107,10 +107,25 @@ redis:
 db:
   image: postgres
 ```
-
 🧱 Basic but limited.
-
 ---
+
+### ✅ Features:
+- Simple YAML structure (no top-level `version` key)
+- Defines services and their basic attributes (like `image`, `ports`, `links`)
+
+### ❌ Limitations:
+| Limitation | Description |
+|------------|-------------|
+| ❌ No built-in networks | Containers use Docker’s default bridge network, which is shared and flat. |
+| ❌ `links` are required | Manual linking with `links`, which is now deprecated. |
+| ❌ No `depends_on` | You had to manage container startup order manually. |
+| ❌ No top-level structure | You can’t define networks or volumes globally. |
+| ❌ Not swarm-ready | Can’t be used in Docker Swarm Mode. |
+
+### 🚨 Result:
+- Good for simple development environments
+- Becomes fragile and unscalable for more than 2–3 containers
 
 ## ⚡ Version 2 – Introducing Networks & Depends On
 
@@ -164,7 +179,25 @@ networks:
 🚦 Control service startup order.  
 🌐 Isolated networks.
 
----
+## ⚡ Version 2 – Real Networks & Orchestration (Docker Compose 1.6+)
+
+### ✅ What it Introduced:
+| Feature         | Description |
+|-----------------|-------------|
+| 🔗 **Networks** | Define and isolate traffic between services. Each service can belong to one or more user-defined networks. |
+| 🚦 **depends_on** | Control basic startup order. Useful in development environments. |
+| 🏗️ **Top-level structure** | Now includes `version`, `services`, `networks`, and `volumes`. |
+| 🛠️ **Improved syntax** | More consistent and YAML-compliant than v1. |
+| 💬 **DNS-based service discovery** | Built-in DNS resolves service names to container IPs, no need for `--link`. |
+
+### 🛠 Problem Solved:
+- ❌ Manual `--link` is replaced with ✔️ built-in networks  
+- ❌ Fragile startup order is improved with ✔️ `depends_on`  
+- ❌ Lack of modularity is improved with ✔️ global `networks` and `volumes`
+
+### ⚠️ Caveat:
+- **Still not compatible with Docker Swarm.**  
+This version works great for **local development and testing**, but not for distributed, clustered deployment.
 
 ## 🚀 Version 3 – Swarm Mode Ready
 
@@ -246,61 +279,6 @@ networks:
 
 ---
 
-## 🧠 Summary
-
-| Feature         | Docker Run                      | Docker Compose            |
-|-----------------|----------------------------------|----------------------------|
-| Startup         | Manual                          | `docker-compose up`       |
-| Linking         | `--link` (deprecated)           | Networks + DNS            |
-| Startup Order   | You manage                      | `depends_on`              |
-| Multiple Apps   | Shell scripts                   | YAML config               |
-| Scaling         | Manual                          | Easy                      |
-| Port Mapping    | Manually                        | Configurable in YAML      |
-
-# 📚 Docker Compose Versions – Explained
-
-## ⚙️ Version 1 – The Beginning (Pre-1.6)
-
-### ✅ Features:
-- Simple YAML structure (no top-level `version` key)
-- Defines services and their basic attributes (like `image`, `ports`, `links`)
-
-### ❌ Limitations:
-| Limitation | Description |
-|------------|-------------|
-| ❌ No built-in networks | Containers use Docker’s default bridge network, which is shared and flat. |
-| ❌ `links` are required | Manual linking with `links`, which is now deprecated. |
-| ❌ No `depends_on` | You had to manage container startup order manually. |
-| ❌ No top-level structure | You can’t define networks or volumes globally. |
-| ❌ Not swarm-ready | Can’t be used in Docker Swarm Mode. |
-
-### 🚨 Result:
-- Good for simple development environments
-- Becomes fragile and unscalable for more than 2–3 containers
-
----
-
-## ⚡ Version 2 – Real Networks & Orchestration (Docker Compose 1.6+)
-
-### ✅ What it Introduced:
-| Feature         | Description |
-|-----------------|-------------|
-| 🔗 **Networks** | Define and isolate traffic between services. Each service can belong to one or more user-defined networks. |
-| 🚦 **depends_on** | Control basic startup order. Useful in development environments. |
-| 🏗️ **Top-level structure** | Now includes `version`, `services`, `networks`, and `volumes`. |
-| 🛠️ **Improved syntax** | More consistent and YAML-compliant than v1. |
-| 💬 **DNS-based service discovery** | Built-in DNS resolves service names to container IPs, no need for `--link`. |
-
-### 🛠 Problem Solved:
-- ❌ Manual `--link` is replaced with ✔️ built-in networks  
-- ❌ Fragile startup order is improved with ✔️ `depends_on`  
-- ❌ Lack of modularity is improved with ✔️ global `networks` and `volumes`
-
-### ⚠️ Caveat:
-- **Still not compatible with Docker Swarm.**  
-This version works great for **local development and testing**, but not for distributed, clustered deployment.
-
----
 
 ## 🚀 Version 3 – Production & Swarm Mode (Compose 1.13+)
 
@@ -342,6 +320,18 @@ This version works great for **local development and testing**, but not for dist
 | Production Use       | ❌                       | ⚠️ Local dev/testing only     | ✅ Cluster-ready              |
 
 ---
+
+## 🧠 Summary - Docker Run vs Docker Compose
+
+| Feature         | Docker Run                      | Docker Compose            |
+|-----------------|----------------------------------|----------------------------|
+| Startup         | Manual                          | `docker-compose up`       |
+| Linking         | `--link` (deprecated)           | Networks + DNS            |
+| Startup Order   | You manage                      | `depends_on`              |
+| Multiple Apps   | Shell scripts                   | YAML config               |
+| Scaling         | Manual                          | Easy                      |
+| Port Mapping    | Manually                        | Configurable in YAML      |
+
 
 ## ✅ TL;DR — Which One Should You Use?
 
