@@ -231,8 +231,6 @@ networks:
 🚦 Control service startup order.  
 🌐 Isolated networks.
 
-## ⚡ Version 2 – Real Networks & Orchestration (Docker Compose 1.6+)
-
 ### ✅ What it Introduced:
 | Feature         | Description |
 |-----------------|-------------|
@@ -324,15 +322,41 @@ links:
 
 ```yaml
 networks:
+  - frontend
   - backend
 ```
+- Docker Compose will automatically create isolated virtual networks called frontend and backend for your project when you run `docker-compose up`
+- Each network acts like a private internal LAN, and only services connected to the same network can communicate with each other.
+- Services on the **same network** can talk to each other using **service names**.
+- This setup allows for **security** and **modularity**—frontend stuff stays separate from backend internals.
 
++----------------+           +----------------+           +----------------+
+|                |           |                |           |                |
+|     vote       |<--------->|     result     |<--------->|     worker     |
+|  (frontend &   |           |  (frontend &   |           |    (backend)   |
+|   backend)     |           |   backend)     |           |                |
+|                |           |                |           |                |
++----------------+           +----------------+           +----------------+
+         |                           |                            |
+         |                           |                            |
+         v                           v                            v
++----------------+           +----------------+           +----------------+
+|                |           |                |           |                |
+|     redis      |<--------->|       db       |           |                |
+|     (backend)  |           |    (backend)   |           |                |
+|                |           |                |           |                |
++----------------+           +----------------+           +----------------+
+
+### 🚀 How It Works:
+
+- **`frontend` network** allows the `vote` and `result` services to communicate and expose user-facing ports (like `5000:80`).
+- **`backend` network** allows `vote`, `result`, `worker`, `redis`, and `db` to communicate with each other, but they’re isolated from the frontend.
+- Services like `vote` and `result` are connected to both networks, while others (like `redis` and `db`) are only connected to the backend.
+
+This setup ensures that your backend services (like databases) are **secure** and **isolated** from the frontend, while still allowing them to communicate when needed.
 ✅ Built-in DNS, flexible, scalable.
 
 ---
-
-
-## 🚀 Version 3 – Production & Swarm Mode (Compose 1.13+)
 
 ### ✅ What it Added:
 | Feature | Description |
