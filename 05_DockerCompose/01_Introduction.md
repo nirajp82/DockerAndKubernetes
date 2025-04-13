@@ -571,10 +571,19 @@ vote:
 
 **Docker looks for this:**
 ```
-./vote/
-├── Dockerfile
-├── app.py (or your app code)
-├── requirements.txt (or other dependencies)
+project-root/
+├── docker-compose.yml
+├── vote/
+│   ├── Dockerfile
+│   ├── app.py            # Your application code
+│   ├── requirements.txt  # Dependencies (for Python apps)
+├── result/
+│   ├── Dockerfile
+│   └── ...
+├── worker/
+│   ├── Dockerfile
+│   └── ...
+
 ```
 
 This lets you control exactly how your app runs in the container.
