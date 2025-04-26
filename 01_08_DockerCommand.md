@@ -198,6 +198,76 @@ docker logout
 ## **docker version** 
 - docker version provides detailed information about your Docker installation, including the Docker client and server version, build date, and other relevant details. It helps you verify the version you are running and check for updates.
 
+## 🔍 Inspecting Containers with `docker inspect`
+
+The `docker inspect` command gives detailed, low-level information about Docker containers (both running and stopped) in JSON format.
+
+### 🧰 Syntax
+```bash
+docker inspect <container-id or container-name>
+```
+
+---
+
+### 🧠 What It Shows
+
+| Section              | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------------|
+| `Id`                 | Unique ID of the container                                                  |
+| `Image`              | ID of the image the container is based on                                   |
+| `Name`               | Container name                                                              |
+| `State.Status`       | Current state: `running`, `exited`, or `created`                            |
+| `State.StartedAt`    | When the container started                                                  |
+| `State.FinishedAt`   | When the container stopped (for exited containers)                          |
+| `Mounts`             | Volume or bind mounts in the container                                      |
+| `Config.Env`         | Environment variables passed to the container                               |
+| `NetworkSettings.IPAddress` | IP address assigned to the container (for bridge network mode)        |
+| `HostConfig.PortBindings`   | Port mappings between host and container                              |
+
+---
+
+### ✅ Examples
+
+#### **Inspect a running container**
+```bash
+docker inspect my-running-container
+```
+You’ll see:
+- `State.Status`: `running`
+- IP address and network settings
+- Active mounts and environment variables
+
+#### **Inspect a stopped container**
+```bash
+docker inspect my-stopped-container
+```
+You’ll see:
+- `State.Status`: `exited`
+- `FinishedAt`: timestamp of when it stopped
+- Other configs (image, env, volumes, etc.) still visible
+
+---
+
+### 🎯 Filter Specific Info (with `jq` or `--format`)
+
+#### Show only container status:
+```bash
+docker inspect --format='{{.State.Status}}' my-container
+```
+
+#### Show only the container IP address:
+```bash
+docker inspect --format='{{.NetworkSettings.IPAddress}}' my-container
+```
+
+---
+
+### 🧪 Bonus: Use `jq` for Pretty Output
+```bash
+docker inspect my-container | jq '.[0].State'
+```
+
+
 ## 🚀 Understanding `docker stop` vs `docker kill`
 
 ### `docker stop` - Gracefully Stops a Running Container
