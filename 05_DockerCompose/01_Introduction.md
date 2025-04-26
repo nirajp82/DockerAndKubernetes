@@ -12,15 +12,15 @@ Instead of running each container individually with long `docker run` commands, 
 Consider an application with several components:
 
 - A **frontend** web app — **vote** (Python Flask):  
-  Allows users to vote for cats or dogs  
+  A front-end web app in Python which lets you vote between cats or dogs  
 - A **backend worker** — **worker** (.NET service):  
   Pulls votes from Redis, processes them, and updates the database  
 - A **PostgreSQL database** — **db**:  
   Stores the final vote counts  
 - A **Redis cache** — **redis**:  
-  Temporarily stores votes in memory for quick access  
+  A Redis which collects new votes  
 - A **results app** — **result** (Node.js):  
-  Displays live results of the vote to users  
+  A Node.js web app which shows the results of the voting in real time
 
 With traditional Docker commands (`docker run`), you'd have to:
 
@@ -64,7 +64,8 @@ docker-compose up --scale worker=3
 ## 🗳️ Example: The Voting App Architecture
 
 Visual overview of how the services are connected:
-![image](https://github.com/user-attachments/assets/397c67ae-4d5b-48ee-9cc2-e19514b59c67)
+- <img src="https://github.com/user-attachments/assets/397c67ae-4d5b-48ee-9cc2-e19514b59c67" width="400" height="400" alt="Visual overview of how the services are connected">
+
 
 Each service is isolated in its own container, but they communicate through Docker's internal networking.
 ---
