@@ -64,22 +64,8 @@ docker-compose up --scale worker=3
 ## 🗳️ Example: The Voting App Architecture
 
 Visual overview of how the services are connected:
-```
-+---------------+     +---------+       +------------+
-| Voting Web UI | --> |  Redis  | <---> |   Worker   |
-|   (Python)    |     +---------+       |  (.NET)    |
-+---------------+                         |
-                                          v
-                                +----------------+
-                                |  PostgreSQL DB  |
-                                +----------------+
-                                          |
-                                          v
-                                +-----------------+
-                                | Results Web App |
-                                |    (Node.js)    |
-                                +-----------------+
-```
+![image](https://github.com/user-attachments/assets/397c67ae-4d5b-48ee-9cc2-e19514b59c67)
+
 Each service is isolated in its own container, but they communicate through Docker's internal networking.
 ---
 
