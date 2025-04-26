@@ -633,3 +633,6 @@ This combo gives you the best of both worlds:
 - **Custom-built services** for your own app logic.
 - **Prebuilt, production-grade images** for common infrastructure components.
 
+### References:
+- https://github.com/dockersamples/example-voting-app
+
