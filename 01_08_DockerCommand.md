@@ -441,4 +441,20 @@ docker logout
 This ensures your credentials are removed for security.
 
 ---
+### `docker history` 
+
+The `docker history` command shows the history of an image, displaying information about each layer of the image, such as the commands that were executed to create it, its size, and timestamps. This is useful for understanding the build process and the content of a Docker image.
+
+Here’s how the `docker history` command is explained:
+
+```bash
+# Show the history of a specific Docker image
+docker history <image-name>
+```
+
+- `<image-name>` → Specifies the image whose history you want to view (e.g., `ubuntu`, `nginx:latest`, or a custom image like `my-app:v1`).
+
+```bash
+docker history ubuntu:latest
+```
 
