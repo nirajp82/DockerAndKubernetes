@@ -6,8 +6,6 @@ Docker Engine is at the core of the Docker system. When installing Docker on our
 
 ![image](https://github.com/user-attachments/assets/e565f399-b4e7-4d89-93fb-e119adf904d8)
 
-The Docker Engine is like a **host** that provides an environment to run containers. It's installed on a physical or virtual machine (referred to as the **host machine**), and it manages the containers running on it.
-
 ---
 ### Docker Engine Components
 
@@ -15,6 +13,7 @@ When you install Docker on a **Linux host**, three primary components are instal
 
 1. **Docker Daemon** (`dockerd`):
    - The **Docker Daemon** is the main background service that keeps running on the host system. It is the one that actually manages **Docker objects** (such as **images**, **containers**, **volumes**, and **networks**).
+   - It runs on the Linux operating system and depends on several Linux kernel features. The Docker daemon can also be run on macOS and Windows, although it requires extra setup.
    - Think of the **Daemon** as the **manager** of all Docker operations. It listens for requests from the Docker CLI or the REST API and executes those actions.
    - The **Daemon** handles tasks like:
      - Creating and running containers
@@ -33,6 +32,7 @@ When you install Docker on a **Linux host**, three primary components are instal
 2. **Docker REST API Server**:
    - The **REST API** is an interface that allows external programs or tools to communicate with the Docker Daemon. Instead of using the Docker CLI directly, you can programmatically interact with Docker through this API.
    - This is useful for developers who want to create their own tools that interact with Docker, or for automating Docker tasks in a custom way.
+   - This RESTful API can be accessed using HTTP clients or most modern programming languages' built-in HTTP library.
 
    **Example**:
    If you want to build your own web application that interacts with Docker, you could use the **Docker REST API** to start containers, retrieve logs, or pull images. For instance, you might write a script that automatically starts new containers when certain conditions are met in your application.
