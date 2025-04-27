@@ -8,7 +8,9 @@ A Docker image is a lightweight, standalone, and executable package that contain
 - **Environment variables**
 - **Configurations** and commands to start the application
 
-Docker images are **immutable** and built in layers, allowing efficient storage, caching, and reuse.
+Docker images are **immutable** and built in layers, allowing efficient storage, caching, and reuse. 
+- A Docker image is like a snapshot of an application or environment. It contains everything needed to run a specific program, including the application code, runtime, libraries, and settings.
+  When you create or pull an image, you are working with a "packaged" version of your app that you can run in a container.
 
 ---
 
