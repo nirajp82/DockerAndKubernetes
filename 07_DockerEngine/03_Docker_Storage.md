@@ -27,15 +27,6 @@ By default, Docker on Linux stores its data under `/var/lib/docker`. This is whe
    ```
    This will show directories named by container IDs, containing the container's data and logs.
 
-### For Windows
-
-Docker on Windows, especially when using **Docker Desktop**, uses a LinuxKit VM to run Linux containers. The Docker data is stored in `C:\ProgramData\Docker` by default. You can check and explore the following directories:
-
-1. **Containers**: Data for each container is stored here, including configurations and logs.
-2. **Images**: Where Docker stores downloaded images.
-3. **Volumes**: Persistent data for Docker volumes is stored here.
-4. **Networks**: Network configuration for Docker containers.
-
 ---
 
 ## 2. Docker's Layered Architecture
