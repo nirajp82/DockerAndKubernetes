@@ -49,7 +49,61 @@ When you install Docker on a **Linux host**, three primary components are instal
    - The **CLI** then outputs something like the container ID, letting you know the container has been started.
 
 ---
+Certainly! Here’s the content converted into a **README** format for better readability:
 
+---
+
+# Docker Client-Server Model
+
+The **Docker system** follows a **client-server model**, with the **Docker CLI (Command Line Interface)** acting as the **client** and the **Docker Daemon** as the **server**. This architecture is designed to be scalable and secure, simplifying the management of applications.
+
+## Overview
+
+The **Docker CLI** and the **Docker Daemon** work together to execute commands, manage containers, and handle various Docker tasks. Here's a breakdown of how each component functions:
+
+![image](https://github.com/user-attachments/assets/3b8036b3-1567-40a1-b578-565a24cc24d8)
+
+### Docker CLI (Client)
+
+- The **Docker CLI** receives commands from the user.
+- It checks to ensure the commands are correctly formatted.
+- The CLI then converts the user commands into a **REST API call** that communicates with the **Docker Daemon**.
+
+### Docker Daemon (Server)
+
+- The **Docker Daemon** listens for requests from the Docker CLI and processes them according to its configuration.
+- It is responsible for executing the commands and managing the core tasks, such as:
+  - Monitoring containers
+  - Mounting data volumes
+  - Starting and stopping containers
+  - Managing networks and more
+
+### Client and Daemon Interaction
+
+- The **Docker client** and **Docker daemon** can run on the same machine or on different machines.
+- If they run on separate machines, the **Docker client** can connect to a **remote Docker daemon** over a network. This enables you to manage a remote machine’s Docker system.
+
+The communication between the **Docker client** and **Docker daemon** happens using a **REST API**, which can occur either over **UNIX sockets** or a **network interface**.
+
+### Managing Docker Components
+
+Using the **Docker client**, you can manage various Docker components such as:
+- **Images**: Templates used to create containers.
+- **Containers**: Running instances of images.
+- **Networks**: Virtual networks for container communication.
+- **Data Volumes**: Persistent storage for containers.
+
+### Client Libraries and Application Integration
+
+With the official **Docker client libraries**, developers can write applications that interact with the Docker system. This provides greater flexibility and control, allowing you to automate Docker operations or create custom tools for managing your containers and images.
+
+---
+
+## How Docker Client and Daemon Work Together
+
+The **Docker client** and **Docker daemon** collaborate to streamline the process of developing, deploying, and managing applications. By understanding how these two components interact, you can fully leverage the power of Docker for containerization and application management.
+
+---
 ### How Docker Runs Applications in Containers
 
 Now, let's talk about how Docker actually runs applications inside containers:
