@@ -1,10 +1,4 @@
-# Docker Storage Drivers and File Systems - Practical Guide
-
-## Overview
-
-In this guide, we will explore Docker's storage drivers and file systems, including where Docker stores its data, how the layering system works, and how to persist data beyond container lifecycle. This practical guide will provide examples so you can verify the concepts we discuss.
-
----
+# Docker Storage Drivers and File Systems
 
 ## 1. Docker Data Storage Location
 
