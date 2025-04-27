@@ -2,7 +2,7 @@
 
 ## 1. Docker Data Storage Location
 
-When Docker is installed on a system, it creates a folder structure under `/var/lib/docker`. This is where Docker stores all its data related to containers, images, and volumes. Let's explore this further with a practical verification.
+When Docker is installed on a system, it creates a folder structure under `/var/lib/docker`. This is where Docker stores all its data related to containers, images, and volumes.
 
 ### Practical Steps:
 1. **Inspect the Docker Folder Structure**: 
