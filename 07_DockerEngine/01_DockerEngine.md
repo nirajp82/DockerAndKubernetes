@@ -48,11 +48,6 @@ When you install Docker on a **Linux host**, three primary components are instal
    - The **Daemon** then downloads the **nginx image** (if it's not already on the system), creates a container, and starts it.
    - The **CLI** then outputs something like the container ID, letting you know the container has been started.
 
----
-Certainly! Here’s the content converted into a **README** format for better readability:
-
----
-
 # Docker Client-Server Model
 
 The **Docker system** follows a **client-server model**, with the **Docker CLI (Command Line Interface)** acting as the **client** and the **Docker Daemon** as the **server**. This architecture is designed to be scalable and secure, simplifying the management of applications.
