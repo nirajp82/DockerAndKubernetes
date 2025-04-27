@@ -211,7 +211,7 @@ With bind mounting, a host directory is directly mounted into a container, allow
    ```bash
    docker inspect <container_id>
    ```
-
+![image](https://github.com/user-attachments/assets/4afb3e02-96b4-4b64-bc43-68af7276534c)
 ---
 
 ## 7. Docker Storage Drivers
