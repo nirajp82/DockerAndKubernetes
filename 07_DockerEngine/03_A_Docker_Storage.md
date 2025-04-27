@@ -1,6 +1,6 @@
 # Docker Storage Drivers and File Systems
 
-Docker's storage mechanisms are crucial for understanding how data is managed, stored, and persisted within containers. In this guide, we will cover Docker’s file system architecture, including its layered structure, data persistence with volumes, and storage driver options, with in-depth practical steps for both Windows and Linux.
+Docker's storage mechanisms are crucial for understanding how data is managed, stored, and persisted within containers.
 
 ## 1. Docker Data Storage Location
 
