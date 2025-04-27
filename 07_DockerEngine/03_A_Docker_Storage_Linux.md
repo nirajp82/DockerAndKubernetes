@@ -57,6 +57,8 @@ Docker images are built using a layered architecture. Each layer in the image co
 ## 3. Image Layers and Read-Only Architecture
 
 Docker images are immutable once built. The image layers are read-only, and any changes made in a container based on the image are stored in a new writable layer on top.
+![image](https://github.com/user-attachments/assets/41fefcd9-65b2-4a52-91ac-07072176fba4)
+
 
 ### Practical Steps:
 1. **Run a Container**:
