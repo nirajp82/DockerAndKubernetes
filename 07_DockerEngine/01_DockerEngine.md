@@ -4,7 +4,7 @@ Docker Engine is the software that makes Docker work. It helps create and run co
 
 Docker Engine is at the core of the Docker system. When installing Docker on our device, we usually set up two components: the Docker Command Line Interface (CLI) and Docker Daemon.
 
-![image](https://github.com/user-attachments/assets/e40a3e2c-aa41-421d-ba13-0034892c283d)
+![image](https://github.com/user-attachments/assets/e565f399-b4e7-4d89-93fb-e119adf904d8)
 
 The Docker Engine is like a **host** that provides an environment to run containers. It's installed on a physical or virtual machine (referred to as the **host machine**), and it manages the containers running on it.
 
