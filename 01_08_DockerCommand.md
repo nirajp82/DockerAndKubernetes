@@ -57,6 +57,17 @@ docker run -v /data:/app/data ubuntu ls /app/data
 - `-v /data:/app/data` → Mounts `/data` from the host to `/app/data` in the container
 - `ls /app/data` → Lists the contents of `/app/data` inside the container
 
+```bash
+# Run a container with automatic restarts for a Docker registry service
+docker run -d -p 5000:5000 --restart=always --name my-registry registry:2
+```
+
+- `-d` → Runs the container in **detached mode** (in the background)
+- `-p 5000:5000` → Maps **port 5000** on your local machine to **port 5000** inside the container
+- `--restart=always` → Ensures the container **always restarts** if it stops, crashes, or the system reboots
+- `--name my-registry` → Gives the container the name **`my-registry`** for easy reference
+- `registry:2` → Uses the **Docker registry image**, version 2
+
 ## **Managing Containers** 🔄
 ### **`docker ps`** - List Running Containers
 ```bash
