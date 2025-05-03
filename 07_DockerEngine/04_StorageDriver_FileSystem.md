@@ -65,15 +65,12 @@ To confirm:
 ```bash
 docker images
 ```
-![image](https://github.com/user-attachments/assets/31f7b632-df11-4565-9803-a7dd809fc762)
-
 Check AUFS `diff/`:
 
 ```bash
 ls /var/lib/docker/aufs/diff
 ```
-
-You’ll find a folder representing a single layer with a script named `hello`.
+![image](https://github.com/user-attachments/assets/6bcb256b-0a3a-4940-911c-c093b1b82043)
 
 ---
 
@@ -84,6 +81,7 @@ Use the `docker history` command to trace how an image was built:
 ```bash
 docker history hello-world
 ```
+![image](https://github.com/user-attachments/assets/c754a959-0baf-458b-aa9c-a93a7827e2e1)
 
 This reveals:
 
@@ -114,13 +112,7 @@ Dockerfile
 
 ### Dockerfile Example
 
-```Dockerfile
-FROM ubuntu
-RUN apt-get update && apt-get install -y python3 python3-pip
-RUN pip3 install flask
-COPY app.py /opt/app.py
-ENTRYPOINT ["python3", "/opt/app.py"]
-```
+![image](https://github.com/user-attachments/assets/0ddfa3dc-526e-44e6-b3b5-b815c446c858)
 
 ### Build the Image
 
