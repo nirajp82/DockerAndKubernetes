@@ -122,21 +122,6 @@ docker build -t simple-web-app .
 
 🕒 **First-time build** may take several minutes (downloads base images, installs dependencies).
 
-Check the image:
-
-```bash
-docker images
-```
-
-Expected output:
-
-```
-REPOSITORY       TAG       IMAGE ID       CREATED          SIZE
-simple-web-app   latest    abcdef123456   a few seconds ago  467MB
-```
-
----
-
 ## 🧰 Docker Caching
 
 Rebuild the same image:
@@ -145,7 +130,7 @@ Rebuild the same image:
 docker build -t simple-web-app .
 ```
 
-⚡ Output will show `Using cache` for each instruction — rebuild completes in \~1 second.
+You’ll see messages like Using cache for each step, meaning Docker is reusing previously built layers. Since dependencies were already built earlier, the rebuild completes in about 1 second — it's fast because no new changes require a full rebuild.
 
 **Docker caches image layers**, so it skips unchanged steps during rebuild.
 
