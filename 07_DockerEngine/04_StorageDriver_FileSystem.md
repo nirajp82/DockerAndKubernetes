@@ -149,6 +149,7 @@ docker history simple-web-app
 ```bash
 du -sh /var/lib/docker/aufs/diff/*
 ```
+![image](https://github.com/user-attachments/assets/6c53d13b-80f5-44ce-9e2a-b5b3900f60d1)
 
 Match large folders (e.g., 376MB) to corresponding layers (e.g., Flask dependencies).
 
