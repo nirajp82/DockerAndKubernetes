@@ -237,7 +237,11 @@ On Windows, Docker primarily uses **LCOW** (Linux Containers on Windows) when ru
    To find out which storage driver Docker is using, run:
    ```bash
    docker info | grep "Storage Driver"
+   docker info | more
+   ![image](https://github.com/user-attachments/assets/b39dc718-8430-4d9c-aa61-716a49b12829)
    ```
+
+   
 
 2. **Storage Driver Options**:
    Docker supports multiple storage drivers, each with different characteristics. Depending on your operating system and use case, you may need to choose the appropriate driver for better performance or compatibility.
