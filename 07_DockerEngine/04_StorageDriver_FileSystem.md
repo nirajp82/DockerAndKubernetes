@@ -65,13 +65,7 @@ To confirm:
 ```bash
 docker images
 ```
-
-**Output:**
-
-```
-REPOSITORY     TAG       IMAGE ID       CREATED         SIZE
-hello-world    latest    2cb0d9787c4d   5 weeks ago     13.3kB
-```
+![image](https://github.com/user-attachments/assets/31f7b632-df11-4565-9803-a7dd809fc762)
 
 Check AUFS `diff/`:
 
