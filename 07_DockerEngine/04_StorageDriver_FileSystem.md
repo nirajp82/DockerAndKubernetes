@@ -27,15 +27,12 @@ ls /var/lib/docker
 Docker uses a **storage driver** to manage image and container layers. To check which driver is in use:
 
 ```bash
-docker info
+# Display a summary of Docker disk usage
+docker system df | more
 ```
 
 **Sample Output Snippet:**
-
-```
-Storage Driver: aufs
-Docker Root Dir: /var/lib/docker/aufs
-```
+![image](https://github.com/user-attachments/assets/7bc99508-0b19-4c5d-aa31-bbf501f28b1b)
 
 > 🔹 **AUFS** (Advanced Multi-Layered Unification Filesystem) is the default driver on **Ubuntu/Debian** systems.
 
