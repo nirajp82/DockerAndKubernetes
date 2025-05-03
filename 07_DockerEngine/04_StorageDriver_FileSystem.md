@@ -142,15 +142,7 @@ You’ll see messages like Using cache for each step, meaning Docker is reusing 
 docker history simple-web-app
 ```
 
-Example output:
-
-```
-SIZE      CREATED BY
-366MB     RUN pip3 install flask
-...
-```
-
----
+![image](https://github.com/user-attachments/assets/a0d0347e-3f47-4752-a541-16850b5b8825)
 
 ## 📊 Checking AUFS Layer Sizes
 
