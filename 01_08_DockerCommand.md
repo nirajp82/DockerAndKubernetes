@@ -458,3 +458,34 @@ docker history <image-name>
 docker history ubuntu:latest
 ```
 
+Sure! Here's an explanation of the `docker system df` command in the same style:
+
+---
+
+### `docker system df`
+The `docker system df` command shows how much disk space Docker is using and what is consuming that space. It gives you a breakdown of disk usage for images, containers, volumes, and build cache. This is helpful for identifying large or unused items you might want to clean up to free space.
+
+Here’s how the `docker system df` command is explained:
+
+```bash
+# Display a summary of Docker disk usage
+docker system df
+```
+
+* **Images** → Shows how many images are on your system, how many are in use, how many are dangling (unused), and how much total space they consume.
+* **Containers** → Lists the number of containers (running, stopped, or exited) and their associated disk usage.
+* **Local Volumes** → Displays the number of volumes and how much space they occupy.
+* **Build Cache** → Shows how much disk space is used by the build cache, which can accumulate during Docker image builds.
+
+**Commonly Used Flags:**
+
+These are optional parameters that modify the behavior of Docker commands. For example:
+
+* `-v` or `--verbose` → Enables verbose output, providing more detailed information about what the command is doing.
+* `-a` or `--all` → Includes all items (e.g., stopped containers or unused images), not just the active ones.
+* `-f` or `--filter` → Filters output based on specific conditions (e.g., by name, status, or label).
+* `--format` → Lets you customize the output format using Go templates, often used for scripting or cleaner displays.
+
+These flags can be combined with many Docker commands to refine the output or change how the command operates.
+
+
