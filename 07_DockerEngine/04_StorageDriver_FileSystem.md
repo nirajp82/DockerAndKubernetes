@@ -32,6 +32,7 @@ docker system df | more
 ```
 
 **Sample Output Snippet:**
+
 ![image](https://github.com/user-attachments/assets/7bc99508-0b19-4c5d-aa31-bbf501f28b1b)
 
 > 🔹 **AUFS** (Advanced Multi-Layered Unification Filesystem) is the default driver on **Ubuntu/Debian** systems.
@@ -41,6 +42,7 @@ docker system df | more
 ## 📂 AUFS Structure Explained
 
 AUFS uses three main subfolders under `/var/lib/docker/aufs`:
+![image](https://github.com/user-attachments/assets/e851f3d8-6b8e-4636-bc4f-4b901366f051)
 
 | Folder    | Description                             |
 | --------- | --------------------------------------- |
