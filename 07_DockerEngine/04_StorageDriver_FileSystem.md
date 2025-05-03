@@ -12,15 +12,8 @@ This directory includes several subdirectories, each responsible for storing dif
 
 ```bash
 ls /var/lib/docker
+```
 ![image](https://github.com/user-attachments/assets/e5117cac-f69c-42fd-88b0-53bbf1034bf4)
-
-```
-
-Typical output:
-
-```
-aufs  containers  image  network  plugins  swarm  ...
-```
 
 * `aufs/`: Stores the layers for images and containers.
 * `containers/`: Stores metadata and logs for each container.
