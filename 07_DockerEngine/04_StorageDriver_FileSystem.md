@@ -1,14 +1,6 @@
-# 📦 Understanding Docker File System & Storage Drivers
-
-## 🔍 Overview
-
-This guide walks you through **how Docker stores data**, specifically the **file system structure**, **storage drivers**, and **how image layers and containers** are physically stored on disk. It also demonstrates **how caching works during image builds** and how to inspect Docker image history.
-
----
-
 ## 📁 Default Docker File System Location
 
-When Docker is installed, it uses the default directory:
+When Docker is installed, it uses the default directory (in linux):
 
 ```
 /var/lib/docker
@@ -275,3 +267,11 @@ docker build -f Dockerfile2 -t simple-web-app-2 .
 * AUFS is a **layered filesystem**, each Dockerfile instruction = one layer.
 * Layers are reused during builds using Docker's **build cache**.
 * Storage drivers like AUFS control **how Docker manages file contents** on disk.
+
+---------------
+
+In a windows default installation, layers are stored in C:\ProgramData\dockerdesktop and split across the "image" and "windowsfilter" directories. You can change where the layers are stored using the docker-root configuration, as demonstrated in the Docker Engine on Windows documentation.
+
+Ref:
+
+https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/container-storage
