@@ -157,6 +157,9 @@ Locate your app code:
 
 * Look for the smallest folders (e.g., 12K)
 * `ls` or `cat` to view the actual Python file
+---
+Find and view the content of app.py file.
+![image](https://github.com/user-attachments/assets/91124f80-e196-418a-bff1-ada50ed5dd19)
 
 ---
 
