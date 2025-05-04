@@ -68,6 +68,27 @@ docker run -d -p 5000:5000 --restart=always --name my-registry registry:2
 - `--name my-registry` → Gives the container the name **`my-registry`** for easy reference
 - `registry:2` → Uses the **Docker registry image**, version 2
 
+
+```bash
+# Launch MySQL database container in the background, names it mysql-db, and sets the root password to db_pass123.
+docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
+```
+
+### 🔍 Explanation:
+
+* `docker run` → This is the base Docker command used to start a new container.
+
+* `-d` → **Detached mode**: Runs the container in the background (you won’t see logs unless you run `docker logs`).
+
+* `--name mysql-db` → Gives the container a **custom name** (`mysql-db`) instead of a randomly generated one. This makes it easier to reference later (e.g., `docker stop mysql-db`).
+
+* `-e MYSQL_ROOT_PASSWORD=db_pass123` → **Sets an environment variable** (`MYSQL_ROOT_PASSWORD`) inside the container.
+
+  * This is required by the **MySQL image** to set the **root user password**.
+  * `db_pass123` is the password being set for the MySQL root user.
+
+* `mysql` → Specifies the **Docker image** to use. In this case, it pulls the official `mysql` image (latest version by default, unless specified).
+
 ## **Managing Containers** 🔄
 ### **`docker ps`** - List Running Containers
 ```bash
