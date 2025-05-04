@@ -33,7 +33,7 @@ docker run -it ubuntu /bin/bash
 - `-it` → Interactive mode with a terminal
 - `ubuntu` → Uses the Ubuntu image
 - `/bin/bash` → Runs the Bash shell inside the container
-
+------------------------------------------------------------------------------------
 ```bash
 # Run Nginx in detached mode with port mapping
 docker run -d -p 8080:80 nginx
@@ -41,7 +41,7 @@ docker run -d -p 8080:80 nginx
 - `-d` → Detached mode (runs in the background)
 - `-p 8080:80` → Maps host port 8080 to container port 80
 - `nginx` → Uses the Nginx image
-
+------------------------------------------------------------------------------------
 ```bash
 # Run a container and remove it after it stops
 docker run --rm ubuntu echo "Hello, Docker!"
@@ -49,46 +49,45 @@ docker run --rm ubuntu echo "Hello, Docker!"
 - `--rm` → Removes the container after execution
 - `ubuntu` → Uses the Ubuntu image
 - `echo "Hello, Docker!"` → Runs a simple command inside the container
-
+------------------------------------------------------------------------------------
 ```bash
 # Run a container with a mounted volume
 docker run -v /data:/app/data ubuntu ls /app/data
 ```
 - `-v /data:/app/data` → Mounts `/data` from the host to `/app/data` in the container
 - `ls /app/data` → Lists the contents of `/app/data` inside the container
-
+------------------------------------------------------------------------------------
 ```bash
 # Run a container with automatic restarts for a Docker registry service
 docker run -d -p 5000:5000 --restart=always --name my-registry registry:2
 ```
-
 - `-d` → Runs the container in **detached mode** (in the background)
 - `-p 5000:5000` → Maps **port 5000** on your local machine to **port 5000** inside the container
 - `--restart=always` → Ensures the container **always restarts** if it stops, crashes, or the system reboots
 - `--name my-registry` → Gives the container the name **`my-registry`** for easy reference
 - `registry:2` → Uses the **Docker registry image**, version 2
-
-
+------------------------------------------------------------------------------------
 ```bash
 # Launch MySQL database container in the background, names it mysql-db, and sets the root password to db_pass123.
 docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
 ```
-
 ### 🔍 Explanation:
+- `docker run` → This is the base Docker command used to start a new container.
+- `-d` → **Detached mode**: Runs the container in the background (you won’t see logs unless you run `docker logs`).
+- `--name mysql-db` → Gives the container a **custom name** (`mysql-db`) instead of a randomly generated one. This makes it easier to reference later (e.g., `docker stop mysql-db`).
+- `-e MYSQL_ROOT_PASSWORD=db_pass123` → **Sets an environment variable** (`MYSQL_ROOT_PASSWORD`) inside the container.
+- `db_pass123` is the password being set for the MySQL root user.
+- `mysql` → Specifies the **Docker image** to use. In this case, it pulls the official `mysql` image (latest version by default, unless specified).
+------------------------------------------------------------------------------------
+```bash
+# Launch MySQL database container in the background, names it mysql-db, and sets the root password to db_pass123 also does volume mapping for persistent storage.
+docker run -v /opt/data:/var/lib/mysql -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql
+```
+### 🔍 Explanation:
+-  -v /opt/data:/var/lib/mysql: It mounts host’s /opt/data directory into the container at the location /var/lib/mysql. As a result, all MySQL database files (data, logs, tables) stored inside the container will now be written to /opt/data on your host.  If the container crashes or is updated, the new container can mount the same /opt/data and keep working with the same DB.
+-   By default, the official MySQL Docker image stores all database data in /var/lib/mysql
 
-* `docker run` → This is the base Docker command used to start a new container.
-
-* `-d` → **Detached mode**: Runs the container in the background (you won’t see logs unless you run `docker logs`).
-
-* `--name mysql-db` → Gives the container a **custom name** (`mysql-db`) instead of a randomly generated one. This makes it easier to reference later (e.g., `docker stop mysql-db`).
-
-* `-e MYSQL_ROOT_PASSWORD=db_pass123` → **Sets an environment variable** (`MYSQL_ROOT_PASSWORD`) inside the container.
-
-  * This is required by the **MySQL image** to set the **root user password**.
-  * `db_pass123` is the password being set for the MySQL root user.
-
-* `mysql` → Specifies the **Docker image** to use. In this case, it pulls the official `mysql` image (latest version by default, unless specified).
-
+------------------------------------------------------------------------------------
 ## **Managing Containers** 🔄
 ### **`docker ps`** - List Running Containers
 ```bash
