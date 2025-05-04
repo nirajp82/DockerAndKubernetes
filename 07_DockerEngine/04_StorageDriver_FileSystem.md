@@ -202,7 +202,13 @@ Let’s break this down:
 * However, the size shown in `docker images` is **not just the size of the unique layers** in that image. It includes the **cumulative size of all layers** that the image references, even if they are **shared with other images**.
 
 > ✅ **Important Note:**
-> The `docker images` output shows the **total size** of an image as if it were to be exported independently — including shared base layers like Ubuntu.
+> The `docker images` output shows the **total size** of an image as if it were to be exported independently — including shared base layers like Ubuntu. The size shown is not the actual space used on disk by that specific image — it's the virtual size, including shared layers that may already be cached.
+
+To find out how much space each image actually consumes on disk including shared size, use: 
+```
+docker system df -v
+```
+![image](https://github.com/user-attachments/assets/00307859-41b3-48de-8c1d-097396a0c28f)
 
 #### 📌 Key Points to Remember
 
