@@ -47,20 +47,20 @@ It plays a central role in **Docker's default networking model**, allowing conta
 
 ---
 
-### 🔹 Technical Summary
+## 🔹 Summary of `docker0` Behavior
 
-| Feature                        | Value                                    |
-| ------------------------------ | ---------------------------------------- |
-| Interface name                 | `docker0`                                |
-| Type                           | Linux bridge                             |
-| Default subnet                 | `172.17.0.0/16`                          |
-| Default interface IP           | `172.17.0.1` (host-side IP)              |
-| Container connection method    | Virtual Ethernet pairs (veth interfaces) |
-| Internet access for containers | Enabled via iptables NAT (MASQUERADE)    |
-| External access to containers  | Requires `-p` port mapping               |
+| Component                      | Purpose                                                    |
+| ------------------------------ | ---------------------------------------------------------- |
+| `docker0` interface            | Virtual bridge on the host to connect containers           |
+| Subnet used (default)          | `172.17.0.0/16`                                            |
+| IP of bridge (host side)       | `172.17.0.1`                                               |
+| Container IPs                  | Dynamically assigned from the bridge subnet                |
+| Host ↔ Container communication | Works via `docker0` and veth interfaces                    |
+| Internet access from container | Enabled via **NAT (MASQUERADE)** on the host’s iptables    |
+| Inbound traffic to container   | Blocked unless port is explicitly published (`-p 8080:80`) |
 
 ---------
-## 🔹 How NAT Works in This Context (Simplified)
+## 🔹 How NAT (Network Address Translation) Works in This Context (Simplified)
 
 Docker uses **iptables** to set up **NAT (specifically, MASQUERADE)** rules on the host.
 
@@ -95,20 +95,6 @@ Containers use private IP addresses (like `172.17.0.2`), which:
 * Would be dropped if sent directly.
 
 NAT solves this by **hiding internal IPs** and making it look like all traffic is coming from the host. This allows containers to access external services without needing real public IPs.
-
----
-
-## 🔹 Summary of `docker0` Behavior
-
-| Component                      | Purpose                                                    |
-| ------------------------------ | ---------------------------------------------------------- |
-| `docker0` interface            | Virtual bridge on the host to connect containers           |
-| Subnet used (default)          | `172.17.0.0/16`                                            |
-| IP of bridge (host side)       | `172.17.0.1`                                               |
-| Container IPs                  | Dynamically assigned from the bridge subnet                |
-| Host ↔ Container communication | Works via `docker0` and veth interfaces                    |
-| Internet access from container | Enabled via **NAT (MASQUERADE)** on the host’s iptables    |
-| Inbound traffic to container   | Blocked unless port is explicitly published (`-p 8080:80`) |
 
 ---
 
