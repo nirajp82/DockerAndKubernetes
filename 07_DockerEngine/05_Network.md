@@ -44,17 +44,84 @@ Docker comes with **five built-in network drivers** that implement core networki
 * They **can access your LAN and the internet**, but **won’t appear as physical devices** on your LAN.
 Here's a diagram showing how the default **Docker bridge network** connects containers to each other, the **host**, and the **internet**:
 
-### 🖼️ Docker Bridge Network Diagram
+##### 🖼️ Docker Bridge Network Diagram
 
 ![image](https://github.com/user-attachments/assets/9c99018c-6f61-40c1-8720-234b2714700c)
 
-### 🔍 Key Components
+##### 🔍 Key Components
 
 * **docker0**: The bridge interface on the host (`172.17.0.1` by default).
 * **Containers**: Get IPs from the bridge subnet and can communicate with each other.
 * **NAT (iptables)**: Docker sets up NAT rules so containers can access the **internet via host**.
 * **Host ↔ Container communication**: Possible via the `docker0` interface.
 * **Inbound from Internet**: Only works if ports are published (`-p 8080:80`), else containers are isolated.
+
+This command creates a custom Docker bridge network with own IP subnet and gateway, instead of using Docker’s default settings. 
+```sh
+docker network create --driver bridge --subnet 182.18.0.0/24 --gateway 182.18.0.1 wp-mysql-network
+```
+#### 🧱 What It Does
+
+It creates a **user-defined bridge network** named `wp-mysql-network` with the following characteristics:
+
+| Option                   | Description                                                                                         |
+| ------------------------ | --------------------------------------------------------------------------------------------------- |
+| `--driver bridge`        | Uses the **bridge** driver — the default for standalone container communication on the same host.   |
+| `--subnet 182.18.0.0/24` | Defines a **custom subnet**. This means containers on this network will have IPs like `182.18.0.x`. |
+| `--gateway 182.18.0.1`   | Sets the network **gateway** — this is the "router" address for containers inside the network.      |
+| `wp-mysql-network`       | The **name** of the new network you’re creating. You’ll use this in `--network` flags.              |
+
+#### 🔌 Why Use It?
+
+Using a **custom bridge network** like this gives you:
+
+* **Fixed IP ranges**: You know what IPs your containers will get — useful for predictable setups.
+* **MySQL/WordPress isolation**: Containers in this network can talk only to each other.
+* **Better DNS resolution**: Docker provides **internal DNS** when using named user-defined networks.
+* **No port publishing required** (for internal communication): Containers can talk via internal IP/hostname.
+
+#### 🧑‍🍳 Real Use Case: WordPress + MySQL
+
+You could use this network to **connect WordPress and MySQL** containers like this:
+
+```bash
+# Step 1: Create the network
+docker network create \
+  --driver bridge \
+  --subnet 182.18.0.0/24 \
+  --gateway 182.18.0.1 \
+  wp-mysql-network
+
+# Step 2: Start the MySQL container
+docker run -d \
+  --name mysql-db \
+  --network wp-mysql-network \
+  -e MYSQL_ROOT_PASSWORD=root \
+  -e MYSQL_DATABASE=wordpress \
+  mysql:5.7
+
+# Step 3: Start the WordPress container
+docker run -d \
+  --name wp-site \
+  --network wp-mysql-network \
+  -e WORDPRESS_DB_HOST=mysql-db \
+  -e WORDPRESS_DB_USER=root \
+  -e WORDPRESS_DB_PASSWORD=root \
+  -p 8080:80 \
+  wordpress:latest
+```
+
+✅ Now, `wp-site` can talk to `mysql-db` using internal DNS (`mysql-db:3306`) — no need to expose ports.
+
+#### 📌 When to Use This Command
+
+Use a custom bridge network like this when:
+
+* You want better control over the IP range.
+* You want DNS-based discovery between containers.
+* You're running **multi-container apps** like WordPress + MySQL on the same host.
+* You want to avoid conflicts with Docker’s default `172.x.x.x` bridge networks.
+
 ---
 ### 2. `host`
 
@@ -87,6 +154,7 @@ Then visiting `http://localhost` on your machine will directly connect to **ngin
 
 ![image](https://github.com/user-attachments/assets/7829e126-5e93-48b0-bb49-60842a32a6a3)
 ---
+
 ### 3. `None`
 In Docker, the `None` network mode is a special configuration that isolates a container from all network communication. When a container is connected to a network with the `None` mode, it does **not** have any access to:
 
