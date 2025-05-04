@@ -508,4 +508,59 @@ These are optional parameters that modify the behavior of Docker commands. For e
 
 These flags can be combined with many Docker commands to refine the output or change how the command operates.
 
+### docker network ls
+Absolutely! Here’s a clean and easy-to-understand explanation of the `docker network ls` command in the **same format** as your example for `docker system df`.
 
+---
+
+### `docker network ls`
+The `docker network ls` command lists all the **networks** Docker knows about — including default, custom, and system-level networks. It’s useful for understanding how your containers are connected or what network types are available for your apps.
+
+```bash
+# List all Docker networks
+docker network ls
+```
+### 📋 What It Shows:
+
+This command displays a table of all available Docker networks, including:
+
+* **NETWORK ID** → A unique identifier for the network
+* **NAME** → Human-friendly name of the network
+* **DRIVER** → Type of network driver used (e.g., bridge, host, overlay, macvlan)
+* **SCOPE** → Scope of the network (`local` for a single host, `swarm` for multi-host)
+
+### 🧪 Example Output:
+
+```bash
+NETWORK ID     NAME              DRIVER    SCOPE
+3f6d23aabc12   bridge            bridge    local
+a1c88fe23b71   host              host      local
+b6fdf64e88fc   none              null      local
+9d55b1cf45fb   my_overlay_net    overlay   swarm
+b9bdfb8d59c3   my_macvlan        macvlan   local
+```
+### 🧠 What Each Network Means:
+
+* **bridge** → Default network for containers on the same host.
+* **host** → Containers share the host network stack.
+* **none** → No network access at all (fully isolated).
+* **overlay** → Used for multi-host communication (e.g., in Docker Swarm).
+* **macvlan** → Assigns real MAC addresses; useful for talking directly to the physical network.
+
+### 🛠️ Common Use Cases:
+
+* See what networks exist before attaching a container to one.
+* Verify that overlay networks are active in a Swarm cluster.
+* Check that your custom networks (e.g., `my_custom_bridge`) were created successfully.
+
+### 🧾 Commonly Used Flags:
+
+* `--filter name=<value>` → Show only networks with a specific name.
+* `--filter driver=<value>` → Filter by network driver (e.g., bridge, overlay).
+* `--format` → Customize the output, useful for scripts.
+
+Example:
+
+```bash
+docker network ls --filter driver=overlay
+```
