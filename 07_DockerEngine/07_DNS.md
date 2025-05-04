@@ -1,8 +1,3 @@
-Got it! Here's a single, self-contained `README.md` file that **explains Docker's embedded DNS** and shows **how it works with a real .NET + MySQL example**, using container names instead of IP addresses.
-
----
-
-```markdown
 # 🐳 Understanding Docker’s Embedded DNS with .NET + MySQL Example
 
 Docker provides a **built-in (embedded) DNS server** to make service discovery easy inside container networks. This DNS system allows containers to resolve each other by name (i.e., the container name), avoiding the need for hardcoded IP addresses.
