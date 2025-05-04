@@ -55,14 +55,12 @@ Here's a diagram showing how the default **Docker bridge network** connects cont
 * **NAT (iptables)**: Docker sets up NAT rules so containers can access the **internet via host**.
 * **Host ↔ Container communication**: Possible via the `docker0` interface.
 * **Inbound from Internet**: Only works if ports are published (`-p 8080:80`), else containers are isolated.
-----------------------
+---
 ### 2. `host`
 
 ### 🧠 What is Docker's *Host Network*?
 
 When a container uses the **host network**, it doesn't get its own virtual network or IP. Instead, it shares the same network as your computer (the **host**). It's like the container is running **directly on your machine's network**.
-
----
 
 ### 🧩 Key Points (in simple terms):
 
@@ -70,8 +68,6 @@ When a container uses the **host network**, it doesn't get its own virtual netwo
 * 🔗 **Shares the host’s ports**: If your container listens on port `80`, it actually uses your **host's port 80**.
 * 🔒 **No isolation**: There’s **no network isolation** between the container and your host.
 * ⚠️ **Only one container** can use a specific port at a time (since they share the host’s ports).
-
----
 
 ### 🧪 Example
 
@@ -82,8 +78,6 @@ docker run --network host nginx
 ```
 
 Then visiting `http://localhost` on your machine will directly connect to **nginx** inside the container — because it’s using your host’s port 80.
-
----
 
 ### ⚙️ When to Use It?
 
@@ -143,8 +137,6 @@ So, to clarify:
 * It **cannot connect to a database server**, whether local (on host) or remote, because that would require networking.
 * Even `localhost`, `127.0.0.1`, or hostnames won't resolve — the container has no interface to do so.
 
----
-
 ### Updated Real-World Example (Corrected):
 
 Let’s say you're **processing a database dump file** (e.g., a `.sql` or `.bak` file) that’s already been created and stored locally. Your container’s job is just to:
@@ -164,8 +156,6 @@ Here:
 * `--network none` ensures the container can’t communicate with anything.
 * `-v /backups:/data` gives it access to the file system where the database dump is stored.
 * Your container just processes that file in-place — no need to connect to a database server.
-
----
 
 ### So to be 100% clear:
 
