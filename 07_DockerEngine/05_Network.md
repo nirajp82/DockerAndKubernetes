@@ -98,8 +98,6 @@ Then visiting `http://localhost` on your machine will directly connect to **ngin
 
 An **Overlay network** is a type of network in Docker that spans across multiple Docker hosts (machines). It allows containers running on different hosts to communicate with each other as if they were on the same local network, even though they may be physically located on separate machines.
 
----
-
 ### Key Points about Overlay Networks:
 
 * **Distributed Network**: It connects multiple Docker hosts together, enabling containers to communicate across different machines.
@@ -108,8 +106,6 @@ An **Overlay network** is a type of network in Docker that spans across multiple
 * **Multi-Host Communication**: Even outside of Swarm, you can use overlay networks for multi-host communication between containers on different machines.
 * **Scaling and High Availability**: Overlay networks help in building applications that can scale out across multiple machines, while also providing high availability for services.
 
----
-
 ### How Does It Work?
 
 * **Communication Across Hosts**: Containers connected to the same overlay network on different Docker hosts can send and receive traffic as if they were on the same local network.
@@ -117,8 +113,6 @@ An **Overlay network** is a type of network in Docker that spans across multiple
 * **Encapsulation**: Docker creates virtual networks on top of the physical network and encapsulates the traffic between containers in a secure way, using technologies like VXLAN (Virtual Extensible LAN).
 
 * **No Direct OS Routing**: The overlay network abstracts the complexity of routing between Docker hosts. It automatically handles the communication, so you don’t have to configure routing rules on the underlying OS.
-
----
 
 ### Real-World Use Cases
 
@@ -129,8 +123,6 @@ An **Overlay network** is a type of network in Docker that spans across multiple
 3. **Scaling Applications**: Overlay networks allow you to easily scale your application across multiple machines while ensuring that all your containers can talk to each other. This is useful in production environments where workloads need to be distributed across multiple machines to meet demand.
 
 4. **High Availability**: In a high-availability setup, overlay networks allow you to deploy replicated services across different Docker hosts. Even if one host goes down, the services on other hosts can continue to work, ensuring continuous service.
-
----
 
 ### Example
 
@@ -144,8 +136,6 @@ docker network create --driver overlay my_overlay_network
 
 And then, containers from different hosts that are connected to this network can communicate without any manual network configuration.
 
----
-
 ### When to Use Overlay Networks?
 
 * **Distributed Systems**: When you need to deploy services that span multiple Docker hosts, like a microservices architecture.
@@ -157,11 +147,80 @@ And then, containers from different hosts that are connected to this network can
 ---------------
 ### 4. `ipvlan`
 
-* Advanced networking mode with **fine-grained control** over IPs and VLAN tagging.
-* Useful when integrating Docker with **physical networks**.
-* Better performance than bridge due to **dedicated interfaces**.
+### IPvlan
 
+The **IPvlan** network driver is an advanced networking mode in Docker that provides fine-grained control over IP addresses and VLAN tagging. It is commonly used in scenarios where Docker containers need to be integrated into physical network infrastructures with specific IP requirements. It allows for better performance than the default **bridge** driver, particularly in large-scale environments that require low latency and high throughput.
+
+#### Key Features of IPvlan:
+
+1. **IP Address Management**:
+
+   * IPvlan provides more control over the IP addresses assigned to containers. Unlike the `bridge` driver, which isolates containers within the Docker host's internal network, IPvlan allows containers to have IPs from the physical network or a user-defined subnet.
+   * Containers can be assigned a static or dynamic IP from a subnet, offering a more direct network experience.
+
+2. **VLAN Tagging**:
+
+   * IPvlan allows you to tag containers with specific VLANs (Virtual LANs). This is beneficial in environments where traffic segmentation is required, such as when containers need to be grouped by function, department, or security level.
+
+3. **Performance**:
+
+   * IPvlan provides superior performance compared to the `bridge` driver because it does not route traffic through the Docker host's network stack. Instead, it uses the host's physical network interface, resulting in more efficient and faster packet processing.
+   * It can reduce network overhead in high-performance scenarios, especially in environments where container-to-container communication happens at scale.
+
+4. **No Need for NAT (Network Address Translation)**:
+
+   * With IPvlan, containers can be assigned public IPs directly, eliminating the need for NAT. This can be useful in situations where containers must be reachable from external networks without the additional layer of address translation.
+
+5. **Integration with Physical Networks**:
+
+   * IPvlan allows containers to appear as if they are directly connected to the physical network, similar to how physical machines are configured. This is especially useful when you need the containers to seamlessly integrate into existing network infrastructure, like in data centers or when managing virtual machines.
+
+6. **Types of IPvlan Modes**:
+
+   * **L2 (Layer 2) Mode**: In L2 mode, containers are connected to the network as if they are part of the same physical network segment. This mode uses the host's physical network interface to send and receive packets to/from containers.
+   * **L3 (Layer 3) Mode**: In L3 mode, containers are assigned IP addresses in a different subnet, and traffic routing is done at Layer 3. This mode is suitable when you want to segment network traffic between the Docker host and containers, with routing done on the IP layer.
+
+7. **Scalability**:
+
+   * IPvlan is highly scalable, making it ideal for large deployments where many containers need to be connected to the same physical network without performance degradation.
+   * It's commonly used in cloud and data center environments, where managing thousands of containers with specific networking requirements is a concern.
+
+---
 ### 5. `macvlan`
+
+The **MacVlan** network driver is another advanced networking mode in Docker, allowing containers to have their own MAC addresses. This makes containers appear as if they are physical devices on the network, bypassing the Docker host’s network stack.
+
+#### Key Features of MacVlan:
+
+1. **MAC Address Assignment**:
+
+   * MacVlan allows you to assign a unique MAC address to each container, enabling it to appear as a separate physical device on the network. This is particularly useful when dealing with legacy applications or systems that rely on MAC addresses for network communication, rather than IP addresses.
+
+2. **Direct Network Access**:
+
+   * In a MacVlan network, the Docker daemon routes traffic to containers using their MAC addresses. This enables containers to directly interact with physical devices on the network as though they were independent systems.
+   * This is ideal for applications that need to communicate directly with hardware devices or require specific network configurations that assume the device is not virtualized.
+
+3. **Use Cases**:
+
+   * **Legacy Applications**: Some legacy applications expect direct access to the physical network and cannot work properly when routed through the host's network stack. MacVlan is ideal for such use cases.
+   * **Virtualization**: In scenarios where containers need to be treated as physical hosts (e.g., in a virtualized environment), MacVlan ensures containers are not separated from the host network by Docker's network bridge.
+
+4. **Performance Considerations**:
+
+   * MacVlan has the potential to offer better performance than the `bridge` driver, as it directly interacts with the physical network interface, avoiding the overhead of routing traffic through the host network stack.
+   * However, MacVlan may require more careful network management, as containers are more tightly coupled with the physical network infrastructure.
+
+5. **VLAN Support**:
+
+   * Just like IPvlan, MacVlan supports VLAN tagging, allowing you to segment traffic into different VLANs for better isolation and performance.
+
+#### Comparison Between IPvlan and MacVlan:
+
+* **IPvlan** is generally preferred for scenarios requiring better scalability and VLAN segmentation, as it provides flexible control over IP management and works efficiently at scale.
+* **MacVlan** is more suitable when containers need to appear as physical devices on the network, particularly for legacy applications that rely on MAC addresses or specific network configurations.
+
+In summary, both **IPvlan** and **MacVlan** provide advanced networking capabilities with the potential for better performance and deeper network integration compared to the default `bridge` mode. Choosing between them depends on the specific use case, network requirements, and performance considerations for the containerized application.
 
 * Allows containers to appear as **physical devices** on the network.
 * Each container gets a **unique MAC address**.
