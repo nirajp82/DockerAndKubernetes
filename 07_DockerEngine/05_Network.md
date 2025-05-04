@@ -68,6 +68,7 @@ Here's a diagram showing how the default **Docker bridge network** connects cont
 | IP: 172.17.0.2  |   | IP: 172.17.0.3   |   | IP: 172.17.0.4   |
 +-----------------+   +------------------+   +------------------+
 ```
+![image](https://github.com/user-attachments/assets/9c99018c-6f61-40c1-8720-234b2714700c)
 
 ### 🔍 Key Components
 
