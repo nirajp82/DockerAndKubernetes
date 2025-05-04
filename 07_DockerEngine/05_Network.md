@@ -57,10 +57,43 @@ Here's a diagram showing how the default **Docker bridge network** connects cont
 
 ### 2. `host`
 
-* Containers **share the host's network stack** directly.
-* No separate IP is assigned to the container.
-* Ports exposed by the container are **bound directly to your host's network interface**.
-* Example: A container listening on port 80 will bind to `<your_host_ip>:80`.
+Here's a simplified explanation of **Host Network** in Docker:
+
+---
+
+### 🧠 What is Docker's *Host Network*?
+
+When a container uses the **host network**, it doesn't get its own virtual network or IP. Instead, it shares the same network as your computer (the **host**). It's like the container is running **directly on your machine's network**.
+
+---
+
+### 🧩 Key Points (in simple terms):
+
+* 🚫 **No separate network**: The container **does not get its own IP address**.
+* 🔗 **Shares the host’s ports**: If your container listens on port `80`, it actually uses your **host's port 80**.
+* 🔒 **No isolation**: There’s **no network isolation** between the container and your host.
+* ⚠️ **Only one container** can use a specific port at a time (since they share the host’s ports).
+
+---
+
+### 🧪 Example
+
+If you run:
+
+```bash
+docker run --network host nginx
+```
+
+Then visiting `http://localhost` on your machine will directly connect to **nginx** inside the container — because it’s using your host’s port 80.
+
+---
+
+### ⚙️ When to Use It?
+
+* When you need **fast network performance**.
+* When your app **requires access to the host’s network interfaces** (e.g., for low-level networking, service discovery, or multicast).
+* Use with **care** — you lose the security isolation of container networking.
+
 
 ### 3. `overlay`
 
