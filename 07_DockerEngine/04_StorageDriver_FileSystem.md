@@ -187,6 +187,51 @@ docker build -f Dockerfile2 -t simple-web-app-2 .
 ![image](https://github.com/user-attachments/assets/18ec41d4-ca6b-469d-89b0-53f8fa74f031)
 
 ---
+### 🧊 Docker Images and Size Explained
+
+After building our Docker images,  even though the **second image** (with just a tiny change in application code) shared **most layers with the first**, both images were reported as **467 MB** using `docker images`.
+
+![image](https://github.com/user-attachments/assets/823d7df6-04fc-44ca-9942-1cb7c876946a)
+
+#### 🧾 Why Same Size Despite Small Changes?
+
+Let’s break this down:
+
+* Docker uses a **layered architecture**, where each instruction in the Dockerfile creates a new layer.
+* When you make a change (like modifying your app source code), Docker only rebuilds **from the changed instruction onward** — earlier layers are reused from **cache**.
+* However, the size shown in `docker images` is **not just the size of the unique layers** in that image. It includes the **cumulative size of all layers** that the image references, even if they are **shared with other images**.
+
+> ✅ **Important Note:**
+> The `docker images` output shows the **total size** of an image as if it were to be exported independently — including shared base layers like Ubuntu.
+
+#### 📌 Key Points to Remember
+
+* **Layer Sharing:** Layers are shared across images to save disk space **internally**, but each image reports the full size of its own layer stack.
+* **Cache Efficiency:** Docker builds are fast when reusing cached layers. But once a single instruction changes, **all subsequent steps** must be rebuilt.
+* **Output of `docker images`:** Shows:
+
+  * **REPOSITORY** – name (e.g., `simple-web-app`)
+  * **TAG** – version label (e.g., `latest`)
+  * **IMAGE ID** – unique identifier
+  * **CREATED** – when it was built
+  * **SIZE** – **total virtual size** (sum of all layers in the image)
+
+#### 🧪 Commands Recap
+
+```bash
+docker images
+```
+
+**Output:**
+
+```
+REPOSITORY       TAG       IMAGE ID       CREATED         SIZE
+simple-web-app   latest    7f3b7c8922d3   1 minute ago    467MB
+sample-web-app2  latest    e6a4bc8322d2   10 seconds ago  467MB
+```
+
+
+---
 
 ## 📌 Important Notes
 
