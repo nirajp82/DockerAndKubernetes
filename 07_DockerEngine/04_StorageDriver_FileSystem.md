@@ -208,7 +208,7 @@ To find out how much space each image actually consumes on disk including shared
 ```
 docker system df -v
 ```
-![image](https://github.com/user-attachments/assets/00307859-41b3-48de-8c1d-097396a0c28f)
+![image](https://github.com/user-attachments/assets/f53ef48c-fbc3-43a1-8380-3c7d9bb2e04e)
 
 #### 📌 Key Points to Remember
 
@@ -221,23 +221,6 @@ docker system df -v
   * **IMAGE ID** – unique identifier
   * **CREATED** – when it was built
   * **SIZE** – **total virtual size** (sum of all layers in the image)
-
-#### 🧪 Commands Recap
-
-```bash
-docker images
-```
-
-**Output:**
-
-```
-REPOSITORY       TAG       IMAGE ID       CREATED         SIZE
-simple-web-app   latest    7f3b7c8922d3   1 minute ago    467MB
-sample-web-app2  latest    e6a4bc8322d2   10 seconds ago  467MB
-```
-
-
----
 
 ## 📌 Important Notes
 
