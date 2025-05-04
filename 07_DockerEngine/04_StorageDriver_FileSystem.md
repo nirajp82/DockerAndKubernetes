@@ -184,6 +184,7 @@ docker build -f Dockerfile2 -t simple-web-app-2 .
 ```
 
 🚀 Output will show first few layers **using cache**, while last steps (COPY, ENTRYPOINT) are rebuilt.
+![image](https://github.com/user-attachments/assets/18ec41d4-ca6b-469d-89b0-53f8fa74f031)
 
 ---
 
