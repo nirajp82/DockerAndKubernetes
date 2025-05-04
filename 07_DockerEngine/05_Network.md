@@ -30,13 +30,52 @@ Docker comes with **five built-in network drivers** that implement core networki
 * `ipvlan`
 * `macvlan`
 
-### 1. `bridge`
+### 1. **Bridge** (Default for containers)
 
-* Software-based bridge between your host and the container.
-* Containers connected to the bridge can talk to each other.
+* This is the **default network** Docker uses when you don't specify one.
+* It's a **private internal network** created on the Docker host.
+* Containers in this network get internal IP addresses in the **172.17.x.x** range.
+* Containers connected to the bridge can talk to each other. These containers can communicate with each other using these IP addresses.
+* To allow external access, **map ports** from the container to the Docker host.
+  > Example: `docker run -p 8080:80 my-web-app` maps container's port 80 to host's port 8080.
 * Containers are isolated from the host and other networks unless specifically configured.
 * Each container gets its own IP.
 * They **can access your LAN and the internet**, but **won’t appear as physical devices** on your LAN.
+Here's a diagram showing how the default **Docker bridge network** connects containers to each other, the **host**, and the **internet**:
+
+### 🖼️ Docker Bridge Network Diagram
+
+                        +-------------------+
+                        |      Internet     |
+                        +--------+----------+
+                                 |
+                                 |  (Outbound via host)
+                                 |
+                        +--------v----------+
+                        |   Host Network    |
+                        |  (eth0 or wlan0)  |
+                        +--------+----------+
+                                 |
+                    +------------v-------------+
+                    |     docker0 (Bridge)     |  <-- Default Docker bridge (e.g., 172.17.0.1)
+                    +------------+-------------+
+                                 |
+         +----------------------+----------------------+
+         |                      |                      |
++--------v--------+   +---------v--------+   +---------v--------+
+|  Container A    |   |  Container B     |   |  Container C     |
+| (e.g., nginx)   |   | (e.g., redis)    |   | (e.g., app)      |
+| IP: 172.17.0.2  |   | IP: 172.17.0.3   |   | IP: 172.17.0.4   |
++-----------------+   +------------------+   +------------------+
+```
+
+### 🔍 Key Components
+
+* **docker0**: The bridge interface on the host (`172.17.0.1` by default).
+* **Containers**: Get IPs from the bridge subnet and can communicate with each other.
+* **NAT (iptables)**: Docker sets up NAT rules so containers can access the **internet via host**.
+* **Host ↔ Container communication**: Possible via the `docker0` interface.
+* **Inbound from Internet**: Only works if ports are published (`-p 8080:80`), else containers are isolated.
 
 ### 2. `host`
 
