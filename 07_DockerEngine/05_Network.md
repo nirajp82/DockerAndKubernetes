@@ -92,7 +92,7 @@ Then visiting `http://localhost` on your machine will directly connect to **ngin
 * Use with **care** — you lose the security isolation of container networking.
 
 ![image](https://github.com/user-attachments/assets/7829e126-5e93-48b0-bb49-60842a32a6a3)
-------------------------
+--
 ### 3. `None`
 In Docker, the `None` network mode is a special configuration that isolates a container from all network communication. When a container is connected to a network with the `None` mode, it does **not** have any access to:
 
@@ -127,7 +127,52 @@ docker run --network none -v /path/to/backup:/backup my-backup-container
 * **`--network none`**: This tells Docker to start the container without any network access, meaning it won't have an IP address or be able to communicate with the outside world or any other containers.
 * **`-v /path/to/backup:/backup`**: This mounts a local directory on the host to the container, so the backup data can be saved to the host's file system. The container still has access to its local file system but no network connectivity.
 
-------------------------
+Great question — you're absolutely right to challenge that.
+
+If the container is using Docker's `None` network mode, it **cannot** access a remote database over the network — not over TCP/IP, not even on localhost — because it literally has **no network interface at all**.
+
+So, to clarify:
+
+### ✅ What *is* possible in `--network none` mode:
+
+* The container **can access files on the host machine**, if they are **mounted as volumes**.
+* It can run processes that operate **purely on local filesystem data** — no networking involved.
+
+### ❌ What is *not* possible:
+
+* It **cannot connect to a database server**, whether local (on host) or remote, because that would require networking.
+* Even `localhost`, `127.0.0.1`, or hostnames won't resolve — the container has no interface to do so.
+
+---
+
+### Updated Real-World Example (Corrected):
+
+Let’s say you're **processing a database dump file** (e.g., a `.sql` or `.bak` file) that’s already been created and stored locally. Your container’s job is just to:
+
+* Compress it,
+* Encrypt it,
+* Or copy it to an archive directory.
+
+You do **not** need network access because you're dealing with a **file**, not connecting to a database server.
+
+```bash
+docker run --network none -v /backups:/data my-processing-container process /data/db-dump.sql
+```
+
+Here:
+
+* `--network none` ensures the container can’t communicate with anything.
+* `-v /backups:/data` gives it access to the file system where the database dump is stored.
+* Your container just processes that file in-place — no need to connect to a database server.
+
+---
+
+### So to be 100% clear:
+
+> If you're trying to **connect to a live database**, `--network none` will not work.
+> But if you're processing **an already-exported database file**, it's a perfect fit for secure, isolated operations.
+
+--
 ### 4. `overlay`
 
 ### What is an **Overlay Network** in Docker?
@@ -180,7 +225,7 @@ And then, containers from different hosts that are connected to this network can
 * **Service Discovery**: In a multi-host environment, overlay networks allow services running on different hosts to discover and communicate with each other dynamically.
 ![image](https://github.com/user-attachments/assets/cb0bbf12-ab2b-4316-b109-8992e851d2c1)
 
----------------
+--
 ### 5. `ipvlan`
 
 ### IPvlan
