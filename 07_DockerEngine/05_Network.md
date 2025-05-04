@@ -44,30 +44,7 @@ Docker comes with **five built-in network drivers** that implement core networki
 Here's a diagram showing how the default **Docker bridge network** connects containers to each other, the **host**, and the **internet**:
 
 ### 🖼️ Docker Bridge Network Diagram
-```
-                        +-------------------+
-                        |      Internet     |
-                        +--------+----------+
-                                 |
-                                 |  (Outbound via host)
-                                 |
-                        +--------v----------+
-                        |   Host Network    |
-                        |  (eth0 or wlan0)  |
-                        +--------+----------+
-                                 |
-                    +------------v-------------+
-                    |     docker0 (Bridge)     |  <-- Default Docker bridge (e.g., 172.17.0.1)
-                    +------------+-------------+
-                                 |
-         +----------------------+----------------------+
-         |                      |                      |
-+--------v--------+   +---------v--------+   +---------v--------+
-|  Container A    |   |  Container B     |   |  Container C     |
-| (e.g., nginx)   |   | (e.g., redis)    |   | (e.g., app)      |
-| IP: 172.17.0.2  |   | IP: 172.17.0.3   |   | IP: 172.17.0.4   |
-+-----------------+   +------------------+   +------------------+
-```
+
 ![image](https://github.com/user-attachments/assets/9c99018c-6f61-40c1-8720-234b2714700c)
 
 ### 🔍 Key Components
