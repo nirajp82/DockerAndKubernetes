@@ -152,6 +152,7 @@ And then, containers from different hosts that are connected to this network can
 * **Docker Swarm or Kubernetes**: Overlay networks are essential in orchestrated environments like Docker Swarm, where you need communication between nodes in the cluster.
 * **Cloud Deployments**: In cloud environments where multiple Docker hosts run across different machines or data centers, overlay networks simplify the connectivity between containers.
 * **Service Discovery**: In a multi-host environment, overlay networks allow services running on different hosts to discover and communicate with each other dynamically.
+![image](https://github.com/user-attachments/assets/cb0bbf12-ab2b-4316-b109-8992e851d2c1)
 
 ---------------
 ### 4. `ipvlan`
