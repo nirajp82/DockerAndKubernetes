@@ -57,10 +57,6 @@ Here's a diagram showing how the default **Docker bridge network** connects cont
 
 ### 2. `host`
 
-Here's a simplified explanation of **Host Network** in Docker:
-
----
-
 ### 🧠 What is Docker's *Host Network*?
 
 When a container uses the **host network**, it doesn't get its own virtual network or IP. Instead, it shares the same network as your computer (the **host**). It's like the container is running **directly on your machine's network**.
