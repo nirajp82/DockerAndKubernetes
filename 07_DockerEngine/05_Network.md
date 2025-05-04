@@ -26,6 +26,7 @@ Docker comes with **five built-in network drivers** that implement core networki
 
 * `bridge`
 * `host`
+* `None`
 * `overlay`
 * `ipvlan`
 * `macvlan`
@@ -92,7 +93,41 @@ Then visiting `http://localhost` on your machine will directly connect to **ngin
 
 ![image](https://github.com/user-attachments/assets/7829e126-5e93-48b0-bb49-60842a32a6a3)
 ------------------------
-### 3. `overlay`
+In Docker, the `None` network mode is a special configuration that isolates a container from all network communication. When a container is connected to a network with the `None` mode, it does **not** have any access to:
+
+1. **External Networks**: The container cannot communicate with the outside world, including the internet, or other hosts on the local network.
+
+2. **Other Containers**: It also cannot communicate with other containers on the same host, even if those containers are connected to the default bridge network or any other custom networks.
+
+### How `None` Network Mode Works
+
+* **Network Stack Disabled**: The container has no networking capabilities. This means that no interfaces (e.g., `eth0`) are created, and no IP addresses are assigned.
+* **Use Cases**: This can be useful when you need a container that performs specific tasks, like running a process that doesn't need network communication, or if you're running a container with a security focus that should be fully isolated from network traffic.
+
+### Example of Using `None` Network Mode
+Sure! Here's a real-world example:
+
+### Real-World Example: Database Backup Container
+
+Imagine you're running a **database backup** task inside a Docker container, and you don't want it to communicate with any other container or external network. This task involves taking a snapshot of the database or writing backup files to the local filesystem. Since the backup process doesn't need any network access and should be isolated for security or efficiency, you could use Docker's `None` network mode.
+
+### Example Scenario:
+
+You're working in a **data security** context where you need to ensure that the backup container is completely isolated from other containers and external networks to minimize the risk of unauthorized access or external interference during the backup process.
+
+Here’s how you would set it up:
+
+```bash
+docker run --network none -v /path/to/backup:/backup my-backup-container
+```
+
+### Breakdown:
+
+* **`--network none`**: This tells Docker to start the container without any network access, meaning it won't have an IP address or be able to communicate with the outside world or any other containers.
+* **`-v /path/to/backup:/backup`**: This mounts a local directory on the host to the container, so the backup data can be saved to the host's file system. The container still has access to its local file system but no network connectivity.
+
+------------------------
+### 4. `overlay`
 
 ### What is an **Overlay Network** in Docker?
 
@@ -145,7 +180,7 @@ And then, containers from different hosts that are connected to this network can
 ![image](https://github.com/user-attachments/assets/cb0bbf12-ab2b-4316-b109-8992e851d2c1)
 
 ---------------
-### 4. `ipvlan`
+### 5. `ipvlan`
 
 ### IPvlan
 
@@ -186,7 +221,7 @@ The **IPvlan** network driver is an advanced networking mode in Docker that prov
    * It's commonly used in cloud and data center environments, where managing thousands of containers with specific networking requirements is a concern.
 
 ---
-### 5. `macvlan`
+### 6. `macvlan`
 
 The **MacVlan** network driver is another advanced networking mode in Docker, allowing containers to have their own MAC addresses. This makes containers appear as if they are physical devices on the network, bypassing the Docker host’s network stack.
 
