@@ -215,88 +215,95 @@ And then, containers from different hosts that are connected to this network can
 * **Service Discovery**: In a multi-host environment, overlay networks allow services running on different hosts to discover and communicate with each other dynamically.
 ![image](https://github.com/user-attachments/assets/cb0bbf12-ab2b-4316-b109-8992e851d2c1)
 
---
-### 5. `ipvlan`
+---
+## 🔷 5. MacVlan Network Mode
 
-### IPvlan
+### 🧠 Concept:
 
-The **IPvlan** network driver is an advanced networking mode in Docker that provides fine-grained control over IP addresses and VLAN tagging. It is commonly used in scenarios where Docker containers need to be integrated into physical network infrastructures with specific IP requirements. It allows for better performance than the default **bridge** driver, particularly in large-scale environments that require low latency and high throughput.
+Docker gives the container its **own MAC address** and IP address. It looks like a **completely separate physical device** on the network.
 
-#### Key Features of IPvlan:
+### 📡 Behavior:
 
-1. **IP Address Management**:
+* Acts like a real machine connected to the physical switch.
+* Appears with a unique MAC and IP.
+* No NAT — it talks directly to the network.
+* Requires your host's network interface to be in **promiscuous mode**.
 
-   * IPvlan provides more control over the IP addresses assigned to containers. Unlike the `bridge` driver, which isolates containers within the Docker host's internal network, IPvlan allows containers to have IPs from the physical network or a user-defined subnet.
-   * Containers can be assigned a static or dynamic IP from a subnet, offering a more direct network experience.
+### 📦 Real-World Example:
 
-2. **VLAN Tagging**:
+You're running an old license server that only grants access to **specific MAC addresses** — like one of those old-school floating license systems (e.g., MATLAB license servers).
 
-   * IPvlan allows you to tag containers with specific VLANs (Virtual LANs). This is beneficial in environments where traffic segmentation is required, such as when containers need to be grouped by function, department, or security level.
+You want your Docker container to appear **exactly** like a separate physical machine with its own MAC, so it passes the licensing check.
 
-3. **Performance**:
+### ✅ How to use it:
 
-   * IPvlan provides superior performance compared to the `bridge` driver because it does not route traffic through the Docker host's network stack. Instead, it uses the host's physical network interface, resulting in more efficient and faster packet processing.
-   * It can reduce network overhead in high-performance scenarios, especially in environments where container-to-container communication happens at scale.
+```bash
+docker network create -d macvlan \
+  --subnet=192.168.1.0/24 \
+  --gateway=192.168.1.1 \
+  -o parent=eth0 \
+  macvlan_net
 
-4. **No Need for NAT (Network Address Translation)**:
+docker run --rm --network macvlan_net my-container
+```
 
-   * With IPvlan, containers can be assigned public IPs directly, eliminating the need for NAT. This can be useful in situations where containers must be reachable from external networks without the additional layer of address translation.
+### 🔐 Use Case Summary:
 
-5. **Integration with Physical Networks**:
-
-   * IPvlan allows containers to appear as if they are directly connected to the physical network, similar to how physical machines are configured. This is especially useful when you need the containers to seamlessly integrate into existing network infrastructure, like in data centers or when managing virtual machines.
-
-6. **Types of IPvlan Modes**:
-
-   * **L2 (Layer 2) Mode**: In L2 mode, containers are connected to the network as if they are part of the same physical network segment. This mode uses the host's physical network interface to send and receive packets to/from containers.
-   * **L3 (Layer 3) Mode**: In L3 mode, containers are assigned IP addresses in a different subnet, and traffic routing is done at Layer 3. This mode is suitable when you want to segment network traffic between the Docker host and containers, with routing done on the IP layer.
-
-7. **Scalability**:
-
-   * IPvlan is highly scalable, making it ideal for large deployments where many containers need to be connected to the same physical network without performance degradation.
-   * It's commonly used in cloud and data center environments, where managing thousands of containers with specific networking requirements is a concern.
+* Legacy networks with MAC restrictions
+* Security appliances
+* Network scanning or sniffing
+* Containers that must look like real devices
 
 ---
-### 6. `macvlan`
 
-The **MacVlan** network driver is another advanced networking mode in Docker, allowing containers to have their own MAC addresses. This makes containers appear as if they are physical devices on the network, bypassing the Docker host’s network stack.
+## 🔶 6. IPVlan Network Mode
 
-#### Key Features of MacVlan:
+### 🧠 Concept:
 
-1. **MAC Address Assignment**:
+Docker gives the container a **unique IP address**, but **shares the host’s MAC address**. It behaves like a separate device **only at the IP level**, not MAC level.
 
-   * MacVlan allows you to assign a unique MAC address to each container, enabling it to appear as a separate physical device on the network. This is particularly useful when dealing with legacy applications or systems that rely on MAC addresses for network communication, rather than IP addresses.
+### 📡 Behavior:
 
-2. **Direct Network Access**:
+* All containers use the **same MAC** (host's MAC).
+* Each gets a **separate IP**.
+* Doesn’t require promiscuous mode — more data center-friendly.
 
-   * In a MacVlan network, the Docker daemon routes traffic to containers using their MAC addresses. This enables containers to directly interact with physical devices on the network as though they were independent systems.
-   * This is ideal for applications that need to communicate directly with hardware devices or require specific network configurations that assume the device is not virtualized.
+### 📦 Real-World Example:
 
-3. **Use Cases**:
+You're in a **corporate data center** where the switch port **limits the number of MAC addresses** per interface (common in virtualized environments).
 
-   * **Legacy Applications**: Some legacy applications expect direct access to the physical network and cannot work properly when routed through the host's network stack. MacVlan is ideal for such use cases.
-   * **Virtualization**: In scenarios where containers need to be treated as physical hosts (e.g., in a virtualized environment), MacVlan ensures containers are not separated from the host network by Docker's network bridge.
+Using MacVlan would get blocked. But with IPVlan, you can run multiple containers with different IPs using **only the host’s MAC**, staying within hardware rules.
 
-4. **Performance Considerations**:
+### ✅ How to use it:
 
-   * MacVlan has the potential to offer better performance than the `bridge` driver, as it directly interacts with the physical network interface, avoiding the overhead of routing traffic through the host network stack.
-   * However, MacVlan may require more careful network management, as containers are more tightly coupled with the physical network infrastructure.
+```bash
+docker network create -d ipvlan \
+  --subnet=192.168.1.0/24 \
+  --gateway=192.168.1.1 \
+  -o parent=eth0 \
+  ipvlan_net
 
-5. **VLAN Support**:
+docker run --rm --network ipvlan_net my-container
+```
 
-   * Just like IPvlan, MacVlan supports VLAN tagging, allowing you to segment traffic into different VLANs for better isolation and performance.
+### 🔐 Use Case Summary:
 
-#### Comparison Between IPvlan and MacVlan:
+* Data centers or networks that restrict MAC addresses
+* High-performance environments without NAT
+* Containers needing direct IP-level access, but same physical identity
 
-* **IPvlan** is generally preferred for scenarios requiring better scalability and VLAN segmentation, as it provides flexible control over IP management and works efficiently at scale.
-* **MacVlan** is more suitable when containers need to appear as physical devices on the network, particularly for legacy applications that rely on MAC addresses or specific network configurations.
+---
 
-In summary, both **IPvlan** and **MacVlan** provide advanced networking capabilities with the potential for better performance and deeper network integration compared to the default `bridge` mode. Choosing between them depends on the specific use case, network requirements, and performance considerations for the containerized application.
+## 🧾 Quick Comparison
 
-* Allows containers to appear as **physical devices** on the network.
-* Each container gets a **unique MAC address**.
-* Requires **dedicated physical interface** from host.
-* Ideal for **monitoring or low-level networking tools**.
+| Feature            | MacVlan                       | IPVlan                  |
+| ------------------ | ----------------------------- | ----------------------- |
+| MAC Address        | Unique per container          | Shared with host        |
+| Promiscuous Mode   | Required                      | Not required            |
+| Visible on LAN     | Yes                           | Yes                     |
+| Ideal Use Case     | Legacy MAC-sensitive networks | MAC-restricted networks |
+| Layer of Operation | Layer 2 (MAC)                 | Layer 3 (IP)            |
+
 
 ---
 
