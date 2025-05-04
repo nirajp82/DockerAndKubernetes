@@ -44,7 +44,7 @@ Docker comes with **five built-in network drivers** that implement core networki
 Here's a diagram showing how the default **Docker bridge network** connects containers to each other, the **host**, and the **internet**:
 
 ### 🖼️ Docker Bridge Network Diagram
-
+```
                         +-------------------+
                         |      Internet     |
                         +--------+----------+
