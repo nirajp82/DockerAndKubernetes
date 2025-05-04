@@ -86,7 +86,7 @@ Then visiting `http://localhost` on your machine will directly connect to **ngin
 * Use with **care** — you lose the security isolation of container networking.
 
 ![image](https://github.com/user-attachments/assets/7829e126-5e93-48b0-bb49-60842a32a6a3)
---
+---
 ### 3. `None`
 In Docker, the `None` network mode is a special configuration that isolates a container from all network communication. When a container is connected to a network with the `None` mode, it does **not** have any access to:
 
