@@ -2,7 +2,7 @@
 
 ## Overview
 
-In this course, we will discuss the options available for running Docker on Windows. Containers share the underlying OS kernel, which means that you cannot run a Windows container on a Linux host or vice versa. This concept is crucial for understanding Docker on Windows, as many beginners face difficulties with this distinction.
+Containers share the underlying OS kernel, which means that you cannot run a Windows container on a Linux host or vice versa. This concept is crucial for understanding Docker on Windows, as many beginners face difficulties with this distinction.
 
 We will explore two primary options for Docker on Windows:
 
