@@ -189,8 +189,6 @@ docker run --network none -v /path/to/backup:/backup my-backup-container
 * **`--network none`**: This tells Docker to start the container without any network access, meaning it won't have an IP address or be able to communicate with the outside world or any other containers.
 * **`-v /path/to/backup:/backup`**: This mounts a local directory on the host to the container, so the backup data can be saved to the host's file system. The container still has access to its local file system but no network connectivity.
 
-Great question — you're absolutely right to challenge that.
-
 If the container is using Docker's `None` network mode, it **cannot** access a remote database over the network — not over TCP/IP, not even on localhost — because it literally has **no network interface at all**.
 
 So, to clarify:
