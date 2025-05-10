@@ -4,8 +4,6 @@
 
 Kubernetes, often abbreviated as **K8s**, is a powerful open-source platform designed to automate the deployment, scaling, and management of containerized applications. While tools like Docker make it easy to run individual containers, Kubernetes steps in when you need to manage **thousands of containers** across multiple machines.
 
-It’s important to note: Kubernetes is a vast topic and deserves its own dedicated set of courses. What follows is a **brief overview** to get you comfortable with the basic concepts and how Kubernetes fits into the container ecosystem.
-
 ---
 
 ## **Why Do We Need Kubernetes?**
