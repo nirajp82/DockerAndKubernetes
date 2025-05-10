@@ -17,6 +17,7 @@ By default, Docker on Linux stores its data under `/var/lib/docker`. This is whe
    ```bash
    ls /var/lib/docker
    ```
+   ![image](https://github.com/user-attachments/assets/d5c6187f-68ce-4a11-8bc5-f24430eff95e)
 
    You should see multiple subdirectories based on your storage driver (e.g., `aufs`, `containers`, `images`, `volumes`). The directory layout depends on the storage driver used.
 
@@ -26,7 +27,8 @@ By default, Docker on Linux stores its data under `/var/lib/docker`. This is whe
    ls /var/lib/docker/containers
    ```
    This will show directories named by container IDs, containing the container's data and logs.
-
+   ![image](https://github.com/user-attachments/assets/e197c1a3-822d-498e-8ec3-a71818872875)
+   
 ---
 
 ## 2. Docker's Layered Architecture
