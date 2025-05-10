@@ -188,11 +188,13 @@ Docker supports two types of mounts: **volume mounting** (managed by Docker) and
 
 ### Volume Mounting
 
-In volume mounting, Docker manages the storage location for you, ensuring persistence and flexibility across different systems.
+= In volume mounting, Docker manages the storage location for you, ensuring persistence and flexibility across different systems.
+- Docker picks the storage spot and manages it. It’s clean, portable, and works the same across different machines. Best for persistent, container-friendly data.
 
 ### Bind Mounting
 
-With bind mounting, a host directory is directly mounted into a container, allowing for more control but potentially less portability between systems.
+- With bind mounting, a host directory is directly mounted into a container, allowing for more control but potentially less portability between systems.
+- We have to tell Docker exactly where on your machine to connect. Great for development, but can break on other systems since paths may differ.
 
 #### Practical Steps:
 
