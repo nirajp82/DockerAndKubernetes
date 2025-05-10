@@ -1,7 +1,3 @@
-Sure! Here's a rewritten, non-transcript version of the content — clear, well-structured, and educational, while retaining all the key concepts:
-
----
-
 # **A Beginner's Introduction to Kubernetes**
 
 ## **What is Kubernetes?**
