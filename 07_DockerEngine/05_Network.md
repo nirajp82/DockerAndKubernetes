@@ -68,7 +68,7 @@ It creates a **user-defined bridge network** named `wp-mysql-network` with the f
 | ------------------------ | --------------------------------------------------------------------------------------------------- |
 | `--driver bridge`        | Uses the **bridge** driver — the default for standalone container communication on the same host.   |
 | `--subnet 182.18.0.0/24` | Defines a **custom subnet**. This means containers on this network will have IPs like `182.18.0.x`. |
-| `--gateway 182.18.0.1`   | Sets the network **gateway** — this is the "router" address for containers inside the network.      |
+| `--gateway 182.18.0.1`   | Sets the network **gateway** — this is the "router" address for containers inside the network. All containers use it to leave the Docker network (e.g., to talk to the host or the internet). Each container sends outbound traffic to the gateway, and the gateway handles routing it to the outside world.Container A (IP: 182.18.0.2) ───▶ Gateway (182.18.0.1) ───▶ Internet (e.g., Google)|
 | `wp-mysql-network`       | The **name** of the new network you’re creating. You’ll use this in `--network` flags.              |
 
 #### 🔌 Why Use It?
