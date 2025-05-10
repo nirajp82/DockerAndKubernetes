@@ -108,7 +108,7 @@ Docker images are **immutable** once built. The image layers are **read-only**, 
 
 ## 4. Copy-On-Write Mechanism
 
-Docker uses the **Copy-On-Write (COW)** mechanism when you modify a file inside a container. The original file from the image remains unchanged in the read-only layer, while the modification occurs in the writable layer.
+Docker uses the **Copy-On-Write (COW)** mechanism when you modify a file inside a container.  When a container changes a file, Docker doesn’t touch the original image file. Instead, it makes a copy in the container’s writable layer and edits that. The original stays safe and read-only, like a master copy.
 
 ![image](https://github.com/user-attachments/assets/ec5bb19f-7387-4d42-8b35-59bfcd23d997)
 
