@@ -81,13 +81,12 @@ Use the `docker history` command to trace how an image was built:
 ```bash
 docker history hello-world
 ```
-![image](https://github.com/user-attachments/assets/c754a959-0baf-458b-aa9c-a93a7827e2e1)
+![image](https://github.com/user-attachments/assets/b2719b13-d833-4e1f-96bb-ca7c6b34342b)
 
 This reveals:
 
 * `COPY` step (adding the hello script)
 * `CMD` step (running the script)
-
 ---
 
 ## 🛠️ Manually Run a Script from a Layer (Advanced/Hack)
