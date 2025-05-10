@@ -569,3 +569,5 @@ docker network ls --filter driver=overlay
 - **`docker run -d --name nginx-memory-limited --memory="100m" nginx`**
   This starts another Nginx container named `nginx-memory-limited`, but restricts it to use a maximum of **100 MB of RAM**.
 
+---
+`docker network create --driver bridge --subnet 182.18.0.0/24 --gateway 182.18.0.1 wp-mysql-network` - creates a custom Docker bridge network named `wp-mysql-network`. It assigns the network a subnet of `182.18.0.0/24` and a gateway IP of `182.18.0.1`. The `bridge` driver allows containers to communicate with each other within this subnet and also with the host machine.
