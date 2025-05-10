@@ -198,17 +198,25 @@ Docker supports two types of mounts: **volume mounting** (managed by Docker) and
 
 #### Practical Steps:
 
-1. **Volume Mounting**:
-   Mount a Docker-managed volume:
-   ```bash
-   docker run -d -v /data/mysql:/var/lib/mysql mysql
-   ```
+🔹 **Volume Mounting** – *Let Docker manage the volume*:
 
-2. **Bind Mounting**:
-   Mount a host directory to the container:
-   ```bash
-   docker run -d -v /data/msql:/var/lib/mysql mysql
-   ```
+```bash
+docker run -d -v mysql-data:/var/lib/mysql --name mysql-container mysql
+```
+
+* `mysql-data` is a **Docker-managed volume**.
+* Use `docker volume ls` to see it.
+* Good for portability and persistence.
+
+🔹 **Bind Mounting** – *Use a specific host directory*:
+
+```bash
+docker run -d -v /data/mysql:/var/lib/mysql --name mysql-container mysql
+```
+
+* `/data/mysql` is a **host path**.
+* Changes go directly to your filesystem.
+* Great for local development but less portable.
 
 3. **Verify Mounts**:
    After running the container, verify the mounts with:
