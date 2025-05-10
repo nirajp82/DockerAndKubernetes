@@ -207,7 +207,8 @@ docker run -d -v mysql-data:/var/lib/mysql --name mysql-container mysql
 * `mysql-data` is a **Docker-managed volume**.
 * Use `docker volume ls` to see it.
 * Good for portability and persistence.
-
+* Docker stores volumes under: `/var/lib/docker/volumes/<volume-name>/_data`
+ 
 🔹 **Bind Mounting** – *Use a specific host directory*:
 
 ```bash
