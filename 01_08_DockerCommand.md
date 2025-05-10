@@ -564,3 +564,12 @@ Example:
 ```bash
 docker network ls --filter driver=overlay
 ```
+---
+### Resource Management 
+
+- **`docker run -d --name nginx-limited --cpus="0.5" nginx`**
+  This runs an Nginx container in detached mode (`-d`) named `nginx-limited`, limiting it to use only **50% of a single CPU core**.
+
+- **`docker run -d --name nginx-memory-limited --memory="100m" nginx`**
+  This starts another Nginx container named `nginx-memory-limited`, but restricts it to use a maximum of **100 MB of RAM**.
+
