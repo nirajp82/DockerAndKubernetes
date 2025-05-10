@@ -174,36 +174,12 @@ In Docker, the `None` network mode is a special configuration that isolates a co
 
 Imagine you're running a **database backup** task inside a Docker container, and you don't want it to communicate with any other container or external network. This task involves taking a snapshot of the database or writing backup files to the local filesystem. Since the backup process doesn't need any network access and should be isolated for security or efficiency, you could use Docker's `None` network mode.
 
-### Example Scenario:
-
-You're working in a **data security** context where you need to ensure that the backup container is completely isolated from other containers and external networks to minimize the risk of unauthorized access or external interference during the backup process.
-
-Here’s how you would set it up:
-
-```bash
-docker run --network none -v /path/to/backup:/backup my-backup-container
-```
-
-### Breakdown:
-
-* **`--network none`**: This tells Docker to start the container without any network access, meaning it won't have an IP address or be able to communicate with the outside world or any other containers.
-* **`-v /path/to/backup:/backup`**: This mounts a local directory on the host to the container, so the backup data can be saved to the host's file system. The container still has access to its local file system but no network connectivity.
-
-If the container is using Docker's `None` network mode, it **cannot** access a remote database over the network — not over TCP/IP, not even on localhost — because it literally has **no network interface at all**.
-
-So, to clarify:
-
-### ✅ What *is* possible in `--network none` mode:
-
-* The container **can access files on the host machine**, if they are **mounted as volumes**.
-* It can run processes that operate **purely on local filesystem data** — no networking involved.
-
 ### ❌ What is *not* possible:
 
 * It **cannot connect to a database server**, whether local (on host) or remote, because that would require networking.
 * Even `localhost`, `127.0.0.1`, or hostnames won't resolve — the container has no interface to do so.
 
-### Updated Real-World Example (Corrected):
+### Updated Real-World Example:
 
 Let’s say you're **processing a database dump file** (e.g., a `.sql` or `.bak` file) that’s already been created and stored locally. Your container’s job is just to:
 
@@ -267,8 +243,10 @@ docker service create --name frontend --network my_overlay_net frontend-image
 # On Host B
 docker service create --name backend --network my_overlay_net backend-image
 ```
-
-Boom — they can now reach each other using container names like `backend:port`.
+- You're creating Docker two services (frontend and backend) using Docker Swarm (not regular containers), and you’re connecting them to the same overlay network across multiple hosts.
+- They are deployed on different hosts.
+- The --network my_overlay_net puts them in the same virtual Docker network, so they can communicate securely and seamlessly, even across hosts.
+- Docker Swarm handles the virtual network, routing, and service discovery behind the scenes.
 
 ---
 
