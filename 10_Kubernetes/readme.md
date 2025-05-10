@@ -104,18 +104,3 @@ Here are some basic commands:
 | `kubectl rollout`      | Manage application upgrades and rollbacks |
 
 With just a few commands, Kubernetes lets you manage **hundreds of containers** across **dozens of nodes**, without needing to touch each one individually.
-
----
-
-## **Next Steps**
-
-This was a **high-level introduction** to Kubernetes. To fully master it, you’ll need to explore:
-
-* Pods, Deployments, Services, and Namespaces
-* ConfigMaps and Secrets
-* Volumes and persistent storage
-* Helm (Kubernetes package manager)
-* Advanced scheduling and autoscaling
-* Kubernetes security and RBAC
-
-If you're serious about mastering Kubernetes, consider exploring the full learning paths on platforms like **KodeKloud**, which guide you from beginner to expert, including certifications like **CKA (Certified Kubernetes Administrator)**.
