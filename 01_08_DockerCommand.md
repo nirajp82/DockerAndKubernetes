@@ -478,10 +478,6 @@ docker history <image-name>
 docker history ubuntu:latest
 ```
 
-Sure! Here's an explanation of the `docker system df` command in the same style:
-
----
-
 ### `docker system df`
 The `docker system df` command shows how much disk space Docker is using and what is consuming that space. It gives you a breakdown of disk usage for images, containers, volumes, and build cache. This is helpful for identifying large or unused items you might want to clean up to free space.
 
