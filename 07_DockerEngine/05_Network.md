@@ -168,7 +168,7 @@ In Docker, the `None` network mode is a special configuration that isolates a co
 * **Use Cases**: This can be useful when you need a container that performs specific tasks, like running a process that doesn't need network communication, or if you're running a container with a security focus that should be fully isolated from network traffic.
 
 ### Example of Using `None` Network Mode
-Sure! Here's a real-world example:
+
 
 ### Real-World Example: Database Backup Container
 
