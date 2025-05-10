@@ -243,18 +243,27 @@ Think of storage drivers as **the engine under Docker’s file system** — they
 
 #### 1. **AUFS** – *“The Classic Stack”*
 
-* Union File System: stacks layers like pancakes 🍴.
+* AUFS (Another Union File System) is a **union file system** used in Linux, similar to OverlayFS. It allows you to **combine multiple directories** (layers) into one unified view. stacks layers like pancakes 🍴.
 * Was popular in early Docker versions.
 * Fast and flexible, but **not always supported on newer kernels**.
+* AUFS: Supports multiple lower layers and one upper writable layer. It can merge many layers (up to 128 or more), but it has a more complex internal structure.
 
-🧠 **Think:** Tried and true, but older.
+### Key points about AUFS:
+
+* **Layers**: AUFS allows you to stack several directories (Multiple lower layers) on top of each other, with one writable upper layer.
+* **Read-Only**: The lower layers are typically read-only, while the top layer is where changes (writes) are made.
+* **Copy-on-Write**: When a file in a lower layer is modified, AUFS copies it to the upper layer and then makes the changes, preserving the original file in the lower layer.
+
+AUFS is commonly used in **Docker** before OverlayFS became popular. It helps maintain efficient storage while allowing modification without altering the original layers.
+
 
 #### 2. **Overlay2** – *“The Modern Default”*
 
 * Default on most modern Linux distros.
 * Uses the **overlay** feature in Linux to combine layers.
 * **Better performance and fewer bugs** than AUFS.
-* Sure! Here’s your updated explanation with the **edit** and **delete** scenarios integrated into the flow:
+* OverlayFS: Supports only two layers — one lower (read-only) and one upper (writable). It’s simpler and more efficient with a focus on two layers.
+* OverlayFS: Part of the mainline Linux kernel since version 3.18, meaning it’s natively supported and doesn’t need external patches.
 
 #### OverlayFS in Linux is like a **transparent cover** over a base file system.
 
